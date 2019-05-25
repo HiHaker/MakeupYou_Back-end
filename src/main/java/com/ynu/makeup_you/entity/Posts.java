@@ -18,6 +18,16 @@ public class Posts {
     private String postID;
     private String time;
 
+    public Posts(){
+
+    }
+
+    public Posts(String userID, String postID, String time){
+        this.userID = userID;
+        this.postID = postID;
+        this.time = time;
+    }
+
     @Id
     public String getUserID() {
         return userID;

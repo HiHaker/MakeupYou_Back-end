@@ -1,7 +1,9 @@
 package com.ynu.makeup_you.service;
 
 import com.ynu.makeup_you.entity.PostMessage;
+import com.ynu.makeup_you.entity.Posts;
 import com.ynu.makeup_you.repository.PostMessageRepository;
+import com.ynu.makeup_you.repository.PostsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,13 +18,16 @@ public class PostMessageServiceImpl implements PostMessageService{
 
     @Autowired
     private PostMessageRepository postMessageRepository;
+    @Autowired
+    private PostsRepository postsRepository;
 
     /**
      * 发帖
      */
     @Override
-    public void addPost(PostMessage postMessage) {
+    public void addPost(PostMessage postMessage, Posts posts) {
         postMessageRepository.save(postMessage);
+        postsRepository.save(posts);
     }
 
     /**

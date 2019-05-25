@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created on 2019/5/16
@@ -31,7 +32,8 @@ public class PostMessageController {
     private PostsService postsService;
 
     /**
-     * 发帖
+     * 发帖, 将帖子信息传入，发帖关系存入
+     * @param userID
      * @param postTime
      * @param type
      * @param title
@@ -39,14 +41,22 @@ public class PostMessageController {
      */
 
     @PostMapping("/addPost")
-    public void addPost(
-                        @RequestParam("pid") String pid,
+    public String addPost(
+                        @RequestParam("userID") String userID,
                         @RequestParam("postTime") String postTime,
                         @RequestParam("type") Integer type,
                         @RequestParam("title") String title,
                         @RequestParam("messageBody") String messageBody){
+        // 生成一个id,UUID的变种
+        int hashCodeV = UUID.randomUUID().toString().hashCode();
+        if (hashCodeV < 0)
+            hashCodeV=-hashCodeV;
+        // 长度为10
+        String pid = String.format("%010d",hashCodeV);
         PostMessage postMessage = new PostMessage(pid,postTime,type,title,messageBody);
-        postMessageService.addPost(postMessage);
+        Posts posts = new Posts(userID,pid,postTime);
+        postMessageService.addPost(postMessage,posts);
+        return pid;
     }
 
     /**
