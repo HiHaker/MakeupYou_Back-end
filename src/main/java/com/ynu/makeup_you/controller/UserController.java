@@ -25,6 +25,7 @@ public class UserController {
 
     /**
      * 增加一个用户
+     * @param uid
      * @param username
      * @param password
      * @param birthday
@@ -50,18 +51,7 @@ public class UserController {
                         @RequestParam("description") String description,
                         @RequestParam("mailbox") String mailbox,
                         @RequestParam("last_login_time") String last_login_time){
-        User user = new User();
-        user.setUid(uid);
-        user.setName(username);
-        user.setPassword(password);
-        user.setBirthday(birthday);
-        user.setSex(sex);
-        user.setAge(age);
-        user.setRegister_date(register_date);
-        user.setAvatarID(avatarID);
-        user.setDescription(description);
-        user.setMailbox(mailbox);
-        user.setLast_login_time(last_login_time);
+        User user = new User(uid,username,password,birthday,sex,age,register_date,avatarID,description,mailbox,last_login_time);
         userService.addUser(user);
     }
 
@@ -77,6 +67,7 @@ public class UserController {
 
     /**
      * 修改用户
+     * @param uid
      * @param username
      * @param password
      * @param birthday
@@ -102,18 +93,7 @@ public class UserController {
                            @RequestParam("description") String description,
                            @RequestParam("mailbox") String mailbox,
                            @RequestParam("last_login_time") String last_login_time){
-        User user = new User();
-        user.setUid(uid);
-        user.setName(username);
-        user.setPassword(password);
-        user.setBirthday(birthday);
-        user.setSex(sex);
-        user.setAge(age);
-        user.setRegister_date(register_date);
-        user.setAvatarID(avatarID);
-        user.setDescription(description);
-        user.setMailbox(mailbox);
-        user.setLast_login_time(last_login_time);
+        User user = new User(uid,username,password,birthday,sex,age,register_date,avatarID,description,mailbox,last_login_time);
         userService.addUser(user);
     }
 

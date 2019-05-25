@@ -16,7 +16,6 @@ public class User {
      * Id 自增
      */
     @Id
-    @GeneratedValue
     private String uid;
 
     @Column(name="name")
@@ -39,6 +38,24 @@ public class User {
     private String description;
     @Column(name="last_login_time")
     private String last_login_time;
+
+    /**
+     * 构造函数
+     */
+    public User(String uid, String name, String password, String mailbox, Integer sex, Integer age,
+                String birthday, String register_date, String avatarID, String description, String last_login_time){
+        this.uid = uid;
+        this.name = name;
+        this.password = password;
+        this.mailbox = mailbox;
+        this.sex = sex;
+        this.age = age;
+        this.birthday = birthday;
+        this.register_date = register_date;
+        this.avatarID = avatarID;
+        this.description = description;
+        this.last_login_time = last_login_time;
+    }
 
     /**
      * Getter and Setter

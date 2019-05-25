@@ -8,5 +8,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * BY hujianlong
  */
 public interface UserRepository extends JpaRepository<User,String> {
-
 }
