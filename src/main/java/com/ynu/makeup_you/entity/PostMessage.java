@@ -24,6 +24,10 @@ public class PostMessage {
     /**
      * 构造函数
      */
+    public PostMessage(){
+
+    }
+
     public PostMessage(String pid, String post_time, Integer type, String title, String messagebody){
         this.pid = pid;
         this.post_time = post_time;
