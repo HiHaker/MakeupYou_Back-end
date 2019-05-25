@@ -39,15 +39,13 @@ public class PostMessageController {
      */
 
     @PostMapping("/addPost")
-    public void addPost(@RequestParam("postTime") String postTime,
+    public void addPost(
+                        @RequestParam("pid") String pid,
+                        @RequestParam("postTime") String postTime,
                         @RequestParam("type") Integer type,
                         @RequestParam("title") String title,
                         @RequestParam("messageBody") String messageBody){
-        PostMessage postMessage = new PostMessage();
-        postMessage.setPost_time(postTime);
-        postMessage.setType(type);
-        postMessage.setTitle(title);
-        postMessage.setMessagebody(messageBody);
+        PostMessage postMessage = new PostMessage(pid,postTime,type,title,messageBody);
         postMessageService.addPost(postMessage);
     }
 
@@ -69,15 +67,13 @@ public class PostMessageController {
      */
 
     @PutMapping("/updatePost")
-    public void updatePost(@RequestParam("postTime") String postTime,
+    public void updatePost(
+                        @RequestParam("pid") String pid,
+                        @RequestParam("postTime") String postTime,
                         @RequestParam("type") Integer type,
                         @RequestParam("title") String title,
                         @RequestParam("messageBody") String messageBody){
-        PostMessage postMessage = new PostMessage();
-        postMessage.setPost_time(postTime);
-        postMessage.setType(type);
-        postMessage.setTitle(title);
-        postMessage.setMessagebody(messageBody);
+        PostMessage postMessage = new PostMessage(pid,postTime,type,title,messageBody);
         postMessageService.updatePost(postMessage);
     }
 

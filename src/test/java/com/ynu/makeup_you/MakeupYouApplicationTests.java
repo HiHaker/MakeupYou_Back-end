@@ -26,8 +26,8 @@ public class MakeupYouApplicationTests {
     @Test
     public void saveFavoritesTest() throws Exception{
         CommDoubleKey favoritesKey = new CommDoubleKey();
-        favoritesKey.setUserID(123);
-        favoritesKey.setPostID(456);
+        favoritesKey.setUserID("sdjaskdaksd");
+        favoritesKey.setPostID("asdhasiodo");
         Favorites favorites = entityManager.find(Favorites.class, favoritesKey);
         System.out.println(favorites);
     }
