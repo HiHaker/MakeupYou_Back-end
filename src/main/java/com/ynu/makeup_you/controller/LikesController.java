@@ -37,7 +37,7 @@ public class LikesController {
      * @return
      */
     @GetMapping("/getLikesForUID/{userid}")
-    public List<PostMessage> getFavorites(@PathVariable("userid") Integer id){
+    public List<PostMessage> getFavorites(@PathVariable("userid") String id){
         List<Likes> likes_list = likesService.getAllLikes(id);
         List<PostMessage> post_list = new ArrayList<>();
         for (Likes l:likes_list){
@@ -52,7 +52,7 @@ public class LikesController {
      * @return
      */
     @GetMapping("/getUsersForPID/{postid}")
-    public List<User> getUsers(@PathVariable("postid") Integer id){
+    public List<User> getUsers(@PathVariable("postid") String id){
         List<Likes> likes_list = likesService.getAlluser(id);
         List<User> user_list = new ArrayList<>();
         for (Likes l:likes_list){
@@ -68,8 +68,8 @@ public class LikesController {
      * @param time
      */
     @PostMapping("/addRecord")
-    public void addRecord(@RequestParam("userID") Integer userID,
-                          @RequestParam("postID") Integer postID,
+    public void addRecord(@RequestParam("userID") String userID,
+                          @RequestParam("postID") String postID,
                           @RequestParam("time") String time){
         Likes likes = new Likes();
         likes.setUserID(userID);
@@ -85,7 +85,7 @@ public class LikesController {
      */
 
     @DeleteMapping("/deleteRecord/{uid,pid}")
-    public void deleteUser(@PathVariable("uid") Integer uid, @PathVariable("pid") Integer pid){
+    public void deleteUser(@PathVariable("uid") String uid, @PathVariable("pid") String pid){
         likesService.deleteRecord(uid,pid);
     }
 }

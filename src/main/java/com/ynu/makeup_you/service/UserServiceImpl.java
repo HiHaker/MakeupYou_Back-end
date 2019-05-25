@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void deleteUser(Integer id) {
+    public void deleteUser(String id) {
         userRepository.deleteById(id);
     }
 
@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User findUser(Integer id) {
+    public User findUser(String id) {
         return userRepository.findById(id).orElse(null);
     }
 

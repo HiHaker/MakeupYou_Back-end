@@ -14,8 +14,8 @@ public interface CommentsService {
      * 增加一个评论记录,删除一个评论记录,根据用户id查询postid,根据postid查询用户id
      */
     public void addRecord(Comments comments);
-    public void deleteRecord(Integer userID, Integer postID);
+    public void deleteRecord(String userID, String postID);
 
-    public List<Comments> getAllcommentsOfUser(Integer userID);
-    public List<Comments> getAllCommentsOfPostmsg(Integer postID);
+    public List<Comments> getAllcommentsOfUser(String userID);
+    public List<Comments> getAllCommentsOfPostmsg(String postID);
 }

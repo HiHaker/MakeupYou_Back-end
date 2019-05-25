@@ -14,9 +14,9 @@ public interface UserService {
      * 增加用户、删除用户、更新用户、查询用户接口
      */
     public void addUser(User user);
-    public void deleteUser(Integer id);
+    public void deleteUser(String id);
     public void updateUser(User user);
-    public User findUser(Integer id);
+    public User findUser(String id);
     public List<User> findAllUser();
 
 }

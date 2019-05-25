@@ -24,7 +24,7 @@ public class LikesServiceImpl implements LikesService {
     }
 
     @Override
-    public void deleteRecord(Integer userID, Integer postID) {
+    public void deleteRecord(String userID, String postID) {
         CommDoubleKey likesKey = new CommDoubleKey();
         likesKey.setUserID(userID);
         likesKey.setPostID(postID);
@@ -32,12 +32,12 @@ public class LikesServiceImpl implements LikesService {
     }
 
     @Override
-    public List<Likes> getAllLikes(Integer userID) {
+    public List<Likes> getAllLikes(String userID) {
         return likesRepository.findByUserID(userID);
     }
 
     @Override
-    public List<Likes> getAlluser(Integer postID) {
+    public List<Likes> getAlluser(String postID) {
         return likesRepository.findByPostID(postID);
     }
 }

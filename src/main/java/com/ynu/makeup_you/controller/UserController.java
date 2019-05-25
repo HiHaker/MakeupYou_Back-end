@@ -38,7 +38,9 @@ public class UserController {
      */
 
     @PostMapping("/addUser")
-    public void addUser(@RequestParam("username") String username,
+    public void addUser(
+                        @RequestParam("uid") String uid,
+                        @RequestParam("username") String username,
                         @RequestParam("password") String password,
                         @RequestParam("birthday") String birthday,
                         @RequestParam("sex") Integer sex,
@@ -49,6 +51,7 @@ public class UserController {
                         @RequestParam("mailbox") String mailbox,
                         @RequestParam("last_login_time") String last_login_time){
         User user = new User();
+        user.setUid(uid);
         user.setName(username);
         user.setPassword(password);
         user.setBirthday(birthday);
@@ -68,7 +71,7 @@ public class UserController {
      */
 
     @DeleteMapping("/delete/{id}")
-    public void deleteUser(@PathVariable("id") Integer id){
+    public void deleteUser(@PathVariable("id") String id){
         userService.deleteUser(id);
     }
 
@@ -87,7 +90,9 @@ public class UserController {
      */
 
     @PutMapping("/updateUser")
-    public void updateUser(@RequestParam("username") String username,
+    public void updateUser(
+                           @RequestParam("uid") String uid,
+                           @RequestParam("username") String username,
                            @RequestParam("password") String password,
                            @RequestParam("birthday") String birthday,
                            @RequestParam("sex") Integer sex,
@@ -98,6 +103,7 @@ public class UserController {
                            @RequestParam("mailbox") String mailbox,
                            @RequestParam("last_login_time") String last_login_time){
         User user = new User();
+        user.setUid(uid);
         user.setName(username);
         user.setPassword(password);
         user.setBirthday(birthday);
@@ -128,7 +134,7 @@ public class UserController {
      */
 
     @GetMapping("/findOne/{id}")
-    public User findOne(@PathVariable("id") Integer id){
+    public User findOne(@PathVariable("id") String id){
         return userService.findUser(id);
     }
 

@@ -56,7 +56,7 @@ public class PostMessageController {
      * @param postid
      */
     @DeleteMapping("/deletePost/{postid}")
-    public void deletePost(@PathVariable("postid") Integer postid){
+    public void deletePost(@PathVariable("postid") String postid){
         postMessageService.deletePost(postid);
     }
 
@@ -85,7 +85,7 @@ public class PostMessageController {
      * 查询某用户发表的所有帖子
      */
     @GetMapping("/findPostsByUID/{uid}")
-    public List<PostMessage> findPostsByUid(@PathVariable("uid") Integer uid){
+    public List<PostMessage> findPostsByUid(@PathVariable("uid") String uid){
         List<Posts> posts_list = postsService.getAllPosts(uid);
         List<PostMessage> postMsg_list = new ArrayList<>();
         for (Posts p:posts_list){
@@ -100,7 +100,7 @@ public class PostMessageController {
      * @return
      */
     @GetMapping("/findPostByID/{postid}")
-    public PostMessage findPostByID(@PathVariable("postid") Integer id){
+    public PostMessage findPostByID(@PathVariable("postid") String id){
         return postMessageService.findPost(id);
     }
 

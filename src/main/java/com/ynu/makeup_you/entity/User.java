@@ -17,7 +17,7 @@ public class User {
      */
     @Id
     @GeneratedValue
-    private Integer uid;
+    private String uid;
 
     @Column(name="name")
     private String name;
@@ -44,11 +44,11 @@ public class User {
      * Getter and Setter
      */
 
-    public Integer getUid() {
+    public String getUid() {
         return uid;
     }
 
-    public void setUid(Integer uid) {
+    public void setUid(String uid) {
         this.uid = uid;
     }
 

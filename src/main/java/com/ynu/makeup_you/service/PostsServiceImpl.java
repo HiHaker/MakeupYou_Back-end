@@ -19,7 +19,7 @@ public class PostsServiceImpl implements PostsService{
     PostsRepository postsRepository;
 
     @Override
-    public List<Posts> getAllPosts(Integer userID) {
+    public List<Posts> getAllPosts(String userID) {
         return postsRepository.findByUserID(userID);
     }
 }

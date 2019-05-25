@@ -11,5 +11,5 @@ import java.util.List;
  * BY hujianlong
  */
 public interface PostsRepository extends JpaRepository<Posts, CommDoubleKey> {
-    public List<Posts> findByUserID(Integer uid);
+    public List<Posts> findByUserID(String uid);
 }

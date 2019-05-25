@@ -24,7 +24,7 @@ public class CommentsServiceImpl implements  CommentsService{
     }
 
     @Override
-    public void deleteRecord(Integer userID, Integer postID) {
+    public void deleteRecord(String userID, String postID) {
         CommDoubleKey commentsKey = new CommDoubleKey();
         commentsKey.setUserID(userID);
         commentsKey.setPostID(postID);
@@ -32,12 +32,12 @@ public class CommentsServiceImpl implements  CommentsService{
     }
 
     @Override
-    public List<Comments> getAllcommentsOfUser(Integer userID) {
+    public List<Comments> getAllcommentsOfUser(String userID) {
         return commentsRepository.findByUserID(userID);
     }
 
     @Override
-    public List<Comments> getAllCommentsOfPostmsg(Integer postID) {
+    public List<Comments> getAllCommentsOfPostmsg(String postID) {
         return commentsRepository.findByPostID(postID);
     }
 }

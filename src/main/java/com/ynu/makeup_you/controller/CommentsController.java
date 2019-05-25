@@ -32,7 +32,7 @@ public class CommentsController {
      * @return
      */
     @GetMapping("/getCommentsForUID/{userid}")
-    public List<Comments> getCommentsForUser(@PathVariable("userid") Integer id){
+    public List<Comments> getCommentsForUser(@PathVariable("userid") String id){
         return commentsService.getAllcommentsOfUser(id);
     }
 
@@ -42,7 +42,7 @@ public class CommentsController {
      * @return
      */
     @GetMapping("/getCommentsForPID/{postid}")
-    public List<Comments> getCommentsForPostmsg(@PathVariable("postid") Integer id){
+    public List<Comments> getCommentsForPostmsg(@PathVariable("postid") String id){
         return commentsService.getAllCommentsOfPostmsg(id);
     }
 
@@ -54,8 +54,8 @@ public class CommentsController {
      * @param msg
      */
     @PostMapping("/addRecord")
-    public void addRecord(@RequestParam("userID") Integer userID,
-                          @RequestParam("postID") Integer postID,
+    public void addRecord(@RequestParam("userID") String userID,
+                          @RequestParam("postID") String postID,
                           @RequestParam("time") String time,
                           @RequestParam("messages") String msg) {
         Comments comments = new Comments();
@@ -71,7 +71,7 @@ public class CommentsController {
      * @param pid
      */
     @DeleteMapping("/deleteRecord/{uid,pid}")
-    public void deleteRecord(@PathVariable("uid") Integer uid, @PathVariable("pid") Integer pid){
+    public void deleteRecord(@PathVariable("uid") String uid, @PathVariable("pid") String pid){
         commentsService.deleteRecord(uid,pid);
     }
 

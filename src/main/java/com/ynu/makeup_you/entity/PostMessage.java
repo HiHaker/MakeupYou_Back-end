@@ -11,8 +11,7 @@ import javax.persistence.*;
 @Table(name="postmessage")
 public class PostMessage {
     @Id
-    @GeneratedValue
-    private Integer pid;
+    private String pid;
     @Column(name="post_time")
     private String post_time;
     @Column(name="type")
@@ -25,11 +24,11 @@ public class PostMessage {
     /**
      * Getter and Setter
      */
-    public Integer getPid() {
+    public String getPid() {
         return pid;
     }
 
-    public void setPid(Integer pid) {
+    public void setPid(String pid) {
         this.pid = pid;
     }
 

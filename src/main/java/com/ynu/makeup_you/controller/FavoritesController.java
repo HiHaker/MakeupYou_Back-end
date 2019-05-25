@@ -37,7 +37,7 @@ public class FavoritesController {
      */
 
     @GetMapping("/getFavoritesForUID/{userid}")
-    public List<PostMessage> getFavoritesForUser(@PathVariable("userid") Integer id){
+    public List<PostMessage> getFavoritesForUser(@PathVariable("userid") String id){
         List<Favorites> favorites_list = favoritesService.getAllfavorites(id);
         List<PostMessage> post_list = new ArrayList<>();
         for (Favorites f:favorites_list){
@@ -53,7 +53,7 @@ public class FavoritesController {
      */
 
     @GetMapping("/getUsersForPID/{postid}")
-    public List<User> getUsersForPostmsg(@PathVariable("postid") Integer id){
+    public List<User> getUsersForPostmsg(@PathVariable("postid") String id){
         List<Favorites> favorites_list = favoritesService.getAlluser(id);
         List<User> user_list = new ArrayList<>();
         for (Favorites f:favorites_list){
@@ -70,8 +70,8 @@ public class FavoritesController {
      */
 
     @PostMapping("/addRecord")
-    public void addRecord(@RequestParam("userID") Integer userID,
-                          @RequestParam("postID") Integer postID,
+    public void addRecord(@RequestParam("userID") String userID,
+                          @RequestParam("postID") String postID,
                           @RequestParam("time") String time){
         Favorites favorites = new Favorites();
         favorites.setUserID(userID);
@@ -87,7 +87,7 @@ public class FavoritesController {
      */
 
     @DeleteMapping("/deleteRecord/{uid,pid}")
-    public void deleteRecord(@PathVariable("uid") Integer uid, @PathVariable("pid") Integer pid){
+    public void deleteRecord(@PathVariable("uid") String uid, @PathVariable("pid") String pid){
         favoritesService.deleteRecord(uid,pid);
     }
 

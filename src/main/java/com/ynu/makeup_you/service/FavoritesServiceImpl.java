@@ -25,7 +25,7 @@ public class FavoritesServiceImpl implements FavoritesService {
     }
 
     @Override
-    public void deleteRecord(Integer userID, Integer postID) {
+    public void deleteRecord(String userID, String postID) {
         CommDoubleKey favoritesKey = new CommDoubleKey();
         favoritesKey.setUserID(userID);
         favoritesKey.setPostID(postID);
@@ -33,12 +33,12 @@ public class FavoritesServiceImpl implements FavoritesService {
     }
 
     @Override
-    public List<Favorites> getAllfavorites(Integer userID) {
+    public List<Favorites> getAllfavorites(String userID) {
         return favoritesRepository.findByUserID(userID);
     }
 
     @Override
-    public List<Favorites> getAlluser(Integer postID) {
+    public List<Favorites> getAlluser(String postID) {
         return favoritesRepository.findByPostID(postID);
     }
 

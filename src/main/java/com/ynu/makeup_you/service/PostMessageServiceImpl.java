@@ -29,7 +29,7 @@ public class PostMessageServiceImpl implements PostMessageService{
      * 删除帖
      */
     @Override
-    public void deletePost(Integer postid) {
+    public void deletePost(String postid) {
         postMessageRepository.deleteById(postid);
     }
 
@@ -45,7 +45,7 @@ public class PostMessageServiceImpl implements PostMessageService{
      * 查询某一帖子
      */
     @Override
-    public PostMessage findPost(Integer postid) {
+    public PostMessage findPost(String postid) {
         return postMessageRepository.findById(postid).orElse(null);
     }
 

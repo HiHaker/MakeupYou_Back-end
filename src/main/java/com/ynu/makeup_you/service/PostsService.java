@@ -12,5 +12,5 @@ public interface PostsService {
     /**
      * 查询特定的用户发表过的所有帖子
      */
-    public List<Posts> getAllPosts(Integer userID);
+    public List<Posts> getAllPosts(String userID);
 }

@@ -14,25 +14,25 @@ import javax.persistence.Table;
 @Table(name="post")
 @IdClass(CommDoubleKey.class)
 public class Posts {
-    private Integer userID;
-    private Integer postID;
+    private String userID;
+    private String postID;
     private String time;
 
     @Id
-    public Integer getUserID() {
+    public String getUserID() {
         return userID;
     }
 
-    public void setUserID(Integer userID) {
+    public void setUserID(String userID) {
         this.userID = userID;
     }
 
     @Id
-    public Integer getPostID() {
+    public String getPostID() {
         return postID;
     }
 
-    public void setPostID(Integer postID) {
+    public void setPostID(String postID) {
         this.postID = postID;
     }
 
