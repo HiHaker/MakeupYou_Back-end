@@ -40,17 +40,18 @@ public class UserController {
 
     @PostMapping("/addUser")
     public void addUser(
-                        @RequestParam("uid") String uid,
-                        @RequestParam("username") String username,
-                        @RequestParam("password") String password,
-                        @RequestParam("birthday") String birthday,
-                        @RequestParam("sex") Integer sex,
-                        @RequestParam("age") Integer age,
-                        @RequestParam("register_date") String register_date,
-                        @RequestParam("avatarID") String avatarID,
-                        @RequestParam("description") String description,
-                        @RequestParam("mailbox") String mailbox,
-                        @RequestParam("last_login_time") String last_login_time){
+            @RequestParam("uid") String uid,
+            @RequestParam("username") String username,
+            @RequestParam("password") String password,
+            @RequestParam("birthday") String birthday,
+            @RequestParam("sex") Integer sex,
+            @RequestParam("age") Integer age,
+            @RequestParam("register_date") String register_date,
+            @RequestParam("avatarID") String avatarID,
+            @RequestParam("description") String description,
+            @RequestParam("mailbox") String mailbox,
+            @RequestParam("last_login_time") String last_login_time
+    ){
         User user = new User(uid,username,password,birthday,sex,age,register_date,
                 avatarID,description,mailbox,last_login_time);
         userService.addUser(user);

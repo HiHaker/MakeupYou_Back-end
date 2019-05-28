@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2019/5/15 星期三 下午 21:32:32                    */
+/* Created on:     2019/5/25 星期六 下午 14:34:10                    */
 /*==============================================================*/
 
 
@@ -27,10 +27,10 @@ drop table if exists user;
 /*==============================================================*/
 create table admin_user
 (
-   id                   int not null,
-   name                 varchar(20) not null,
-   password             varchar(32) not null,
-   email                varchar(32),
+   id                   varchar(50) not null,
+   name                 varchar(50) not null,
+   password             varchar(50) not null,
+   email                varchar(50),
    last_login_time      datetime not null,
    primary key (id)
 );
@@ -40,8 +40,8 @@ create table admin_user
 /*==============================================================*/
 create table comments
 (
-   userID               int not null,
-   postID               int not null,
+   userID               varchar(50) not null,
+   postID               varchar(50) not null,
    message              text not null,
    time                 datetime not null,
    primary key (userID, postID)
@@ -52,8 +52,8 @@ create table comments
 /*==============================================================*/
 create table favorites
 (
-   userID               int not null,
-   postID               int not null,
+   userID               varchar(50) not null,
+   postID               varchar(50) not null,
    time                 datetime not null,
    primary key (userID, postID)
 );
@@ -63,7 +63,7 @@ create table favorites
 /*==============================================================*/
 create table image
 (
-   postID               int not null,
+   postID               varchar(50) not null,
    imgID                varchar(255) not null,
    primary key (postID, imgID)
 );
@@ -73,8 +73,8 @@ create table image
 /*==============================================================*/
 create table likes
 (
-   userID               int not null,
-   postID               int not null,
+   userID               varchar(50) not null,
+   postID               varchar(50) not null,
    time                 datetime not null,
    primary key (userID, postID)
 );
@@ -84,8 +84,8 @@ create table likes
 /*==============================================================*/
 create table post
 (
-   userID               int not null,
-   postID               int not null,
+   userID               varchar(50) not null,
+   postID               varchar(50) not null,
    time                 datetime not null,
    primary key (userID, postID)
 );
@@ -95,7 +95,7 @@ create table post
 /*==============================================================*/
 create table postMessage
 (
-   pid                  int not null auto_increment,
+   pid                  varchar(50) not null,
    postTime             date not null,
    type                 tinyint not null,
    title                varchar(50),
@@ -108,8 +108,8 @@ create table postMessage
 /*==============================================================*/
 create table relation
 (
-   fans                 int not null,
-   follows              int not null,
+   fans                 varchar(50) not null,
+   follows              varchar(50) not null,
    primary key (fans, follows)
 );
 
@@ -118,7 +118,7 @@ create table relation
 /*==============================================================*/
 create table user
 (
-   uid                  int not null auto_increment,
+   uid                  varchar(50) not null,
    name                 varchar(50) not null,
    password             varchar(50) not null,
    birthday             date,
