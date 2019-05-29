@@ -96,7 +96,7 @@ create table post
 create table postMessage
 (
    pid                  varchar(50) not null,
-   postTime             date not null,
+   post_time             date not null,
    type                 tinyint not null,
    title                varchar(50),
    messagebody          text not null,

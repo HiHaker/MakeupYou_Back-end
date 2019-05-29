@@ -28,9 +28,9 @@ public class PostMessage {
 
     }
 
-    public PostMessage(String pid, String post_time, Integer type, String title, String messagebody){
+    public PostMessage(String pid, String postTime, Integer type, String title, String messagebody){
         this.pid = pid;
-        this.post_time = post_time;
+        this.post_time = postTime;
         this.type = type;
         this.title = title;
         this.messagebody = messagebody;
@@ -47,12 +47,12 @@ public class PostMessage {
         this.pid = pid;
     }
 
-    public String getPost_time() {
+    public String getPostTime() {
         return post_time;
     }
 
-    public void setPost_time(String post_time) {
-        this.post_time = post_time;
+    public void setPostTime(String postTime) {
+        this.post_time = postTime;
     }
 
     public Integer getType() {

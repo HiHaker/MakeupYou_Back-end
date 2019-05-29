@@ -16,7 +16,7 @@ public class Comments {
     private String userID;
     private String postID;
     private String time;
-    private String messages;
+    private String message;
 
     @Id
     public String getUserID() {
@@ -44,12 +44,12 @@ public class Comments {
         this.time = time;
     }
 
-    public String getMessages() {
-        return messages;
+    public String getMessage() {
+        return message;
     }
 
-    public void setMessages(String messages) {
-        this.messages = messages;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     /**
@@ -62,7 +62,7 @@ public class Comments {
                 "userID=" + userID +
                 ", postID=" + postID +
                 ", time='" + time + '\'' +
-                ", message='" + messages + '\'' +
+                ", message='" + message + '\'' +
                 '}';
     }
 }

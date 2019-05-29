@@ -62,7 +62,8 @@ public class CommentsController {
         comments.setUserID(userID);
         comments.setPostID(postID);
         comments.setTime(time);
-        comments.setMessages(msg);
+        comments.setMessage(msg);
+        commentsService.addRecord(comments);
     }
 
     /**
