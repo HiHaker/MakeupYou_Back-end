@@ -13,154 +13,85 @@ import java.util.List;
 /**
  * Created on 2019/5/15
  * BY hujianlong
+ * 对用户进行操作的Controller，包括用户注册，用户登录，用户信息更改，注销用户，查询用户
  */
 
 @RestController
 @RequestMapping("/user")
 public class UserController {
-
-    /**
-     * 对用户的增删改查控制
-     */
-
     @Autowired
     private UserService userService;
-
     @Autowired
     TokenService tokenService;
 
-    /**
-     * 增加一个用户
-     * @param uid
-     * @param username
-     * @param password
-     * @param birthday
-     * @param sex
-     * @param age
-     * @param register_date
-     * @param avatarID
-     * @param description
-     * @param mailbox
-     * @param last_login_time
-     */
+    JSONObject jsonObject;
 
-    @PostMapping("/addUser")
-    public void addUser(
-            @RequestParam("uid") String uid,
-            @RequestParam("username") String username,
-            @RequestParam("password") String password,
-            @RequestParam("birthday") String birthday,
-            @RequestParam("sex") Integer sex,
-            @RequestParam("age") Integer age,
-            @RequestParam("register_date") String register_date,
-            @RequestParam("avatarID") String avatarID,
-            @RequestParam("description") String description,
-            @RequestParam("mailbox") String mailbox,
-            @RequestParam("last_login_time") String last_login_time
-    ){
-        User user = new User(uid,username,password,birthday,sex,age,register_date,
-                avatarID,description,mailbox,last_login_time);
-        userService.addUser(user);
+    // 用户注册
+    @PostMapping("/register")
+    public Object registerUser(User user){
+        jsonObject = new JSONObject();
+        User userBase = userService.getUserByID(user.getUid());
+        if (userBase != null){
+            jsonObject.put("message","注册失败,用户已经存在!");
+        }else {
+            userService.addUser(user);
+            jsonObject.put("message","注册成功!");
+        }
+        return jsonObject;
     }
 
-    /**
-     * 删除一个用户
-     * @param id
-     */
-
-    @DeleteMapping("/delete/{id}")
-    public void deleteUser(@PathVariable("id") String id){
-        userService.deleteUser(id);
+    // 删除用户
+    @DeleteMapping("/delete/{userid}")
+    public Object deleteUser(@PathVariable("userid") String id){
+        jsonObject = new JSONObject();
+        if (userService.getUserByID(id) == null){
+            jsonObject.put("message","用户不存在,删除失败!");
+        }else{
+            userService.deleteUser(id);
+            jsonObject.put("message","删除成功!");
+        }
+        return jsonObject;
     }
 
-    /**
-     * 修改用户
-     * @param uid
-     * @param username
-     * @param password
-     * @param birthday
-     * @param sex
-     * @param age
-     * @param register_date
-     * @param avatarID
-     * @param description
-     * @param mailbox
-     * @param last_login_time
-     */
+    // 更新用户
+    @PutMapping("/update")
+    public Object updateUser(User user){
+        jsonObject = new JSONObject();
+        if (userService.getUserByID(user.getUid()) == null){
+            jsonObject.put("message","用户不存在,更新失败!");
+        }else{
+            userService.addUser(user);
+            jsonObject.put("message","更新成功!");
+        }
 
-    @PutMapping("/updateUser")
-    public void updateUser(
-                           @RequestParam("uid") String uid,
-                           @RequestParam("username") String username,
-                           @RequestParam("password") String password,
-                           @RequestParam("birthday") String birthday,
-                           @RequestParam("sex") Integer sex,
-                           @RequestParam("age") Integer age,
-                           @RequestParam("register_date") String register_date,
-                           @RequestParam("avatarID") String avatarID,
-                           @RequestParam("description") String description,
-                           @RequestParam("mailbox") String mailbox,
-                           @RequestParam("last_login_time") String last_login_time){
-        User user = new User(uid,username,password,birthday,sex,age,register_date,
-                avatarID,description,mailbox,last_login_time);
-        userService.addUser(user);
+        return jsonObject;
     }
 
-    /**
-     * 查找全部的用户
-     * @return
-     */
+    // 根据用户名查用户
+    @GetMapping("/findUserByName/{name}")
+    public User findUserByName(@PathVariable("name") String name){
+        return userService.getUserByName(name);
+    }
 
-    @GetMapping("/findAll")
+    // 根据用户id查询用户
+    @GetMapping("/findUserByID/{id}")
+    public User findUserByID(@PathVariable("id") String id){
+        return userService.getUserByID(id);
+    }
+
+    // 查询系统内存储的所有用户
+    @GetMapping("/findAllUsers")
     public List<User> findAllUser(){
         return userService.findAllUser();
     }
 
-    /**
-     * 查找特定id的用户
-     * @param id
-     * @return
-     */
-    @GetMapping("/findUserByID/{id}")
-    public User findOne(@PathVariable("id") String id){
-        return userService.getUserByID(id);
-    }
-
-    /**
-     * 用户登录
-     * @param uid
-     * @param username
-     * @param password
-     * @param birthday
-     * @param sex
-     * @param age
-     * @param register_date
-     * @param avatarID
-     * @param description
-     * @param mailbox
-     * @param last_login_time
-     * @return
-     */
+    // 用户登录
     @PostMapping("/login")
-    public Object login(
-            @RequestParam("uid") String uid,
-            @RequestParam("username") String username,
-            @RequestParam("password") String password,
-            @RequestParam("birthday") String birthday,
-            @RequestParam("sex") Integer sex,
-            @RequestParam("age") Integer age,
-            @RequestParam("register_date") String register_date,
-            @RequestParam("avatarID") String avatarID,
-            @RequestParam("description") String description,
-            @RequestParam("mailbox") String mailbox,
-            @RequestParam("last_login_time") String last_login_time
-    ){
-        User user = new User(uid,username,password,birthday,sex,age,register_date,
-                avatarID,description,mailbox,last_login_time);
-        JSONObject jsonObject = new JSONObject();
+    public Object login(User user){
+        jsonObject = new JSONObject();
         User userBase = userService.getUserByID(user.getUid());
         if (userBase == null){
-            jsonObject.put("message","登录失败,用户不存在");
+            jsonObject.put("message","登录失败,用户不存在!");
             return jsonObject;
         }else{
             if (!userBase.getPassword().equals(user.getPassword())){
