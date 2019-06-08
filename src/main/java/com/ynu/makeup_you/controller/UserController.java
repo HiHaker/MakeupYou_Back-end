@@ -1,6 +1,9 @@
 package com.ynu.makeup_you.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.ynu.makeup_you.annotation.UserLoginToken;
 import com.ynu.makeup_you.entity.User;
+import com.ynu.makeup_you.service.TokenService;
 import com.ynu.makeup_you.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +25,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    TokenService tokenService;
 
     /**
      * 增加一个用户
@@ -115,10 +121,64 @@ public class UserController {
      * @param id
      * @return
      */
-
-    @GetMapping("/findOne/{id}")
+    @GetMapping("/findUserByID/{id}")
     public User findOne(@PathVariable("id") String id){
-        return userService.findUser(id);
+        return userService.getUserByID(id);
+    }
+
+    /**
+     * 用户登录
+     * @param uid
+     * @param username
+     * @param password
+     * @param birthday
+     * @param sex
+     * @param age
+     * @param register_date
+     * @param avatarID
+     * @param description
+     * @param mailbox
+     * @param last_login_time
+     * @return
+     */
+    @PostMapping("/login")
+    public Object login(
+            @RequestParam("uid") String uid,
+            @RequestParam("username") String username,
+            @RequestParam("password") String password,
+            @RequestParam("birthday") String birthday,
+            @RequestParam("sex") Integer sex,
+            @RequestParam("age") Integer age,
+            @RequestParam("register_date") String register_date,
+            @RequestParam("avatarID") String avatarID,
+            @RequestParam("description") String description,
+            @RequestParam("mailbox") String mailbox,
+            @RequestParam("last_login_time") String last_login_time
+    ){
+        User user = new User(uid,username,password,birthday,sex,age,register_date,
+                avatarID,description,mailbox,last_login_time);
+        JSONObject jsonObject = new JSONObject();
+        User userBase = userService.getUserByID(user.getUid());
+        if (userBase == null){
+            jsonObject.put("message","登录失败,用户不存在");
+            return jsonObject;
+        }else{
+            if (!userBase.getPassword().equals(user.getPassword())){
+                jsonObject.put("message","登录失败,密码错误!");
+                return jsonObject;
+            }else{
+                String token = tokenService.getToken(userBase);
+                jsonObject.put("token",token);
+                jsonObject.put("user",userBase);
+                return jsonObject;
+            }
+        }
+    }
+
+    @UserLoginToken
+    @GetMapping("/getMessage")
+    public String getMessage(){
+        return "你已经通过验证";
     }
 
 }
