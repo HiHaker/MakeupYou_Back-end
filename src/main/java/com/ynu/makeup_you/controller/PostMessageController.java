@@ -1,5 +1,6 @@
 package com.ynu.makeup_you.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.ynu.makeup_you.entity.PostMessage;
 import com.ynu.makeup_you.entity.Posts;
 import com.ynu.makeup_you.repository.PostMessageRepository;
@@ -15,15 +16,12 @@ import java.util.UUID;
 /**
  * Created on 2019/5/16
  * BY hujianlong
+ * 对帖子进行操作的Controller，用户进行发帖，删除贴子，更新帖子
  */
 
 @RestController
 @RequestMapping("/post")
 public class PostMessageController {
-    /**
-     * 对用户的增删改查控制
-     */
-
     @Autowired
     private PostMessageService postMessageService;
     @Autowired
@@ -31,22 +29,17 @@ public class PostMessageController {
     @Autowired
     private PostsService postsService;
 
-    /**
-     * 发帖, 将帖子信息传入，发帖关系存入
-     * @param userID
-     * @param postTime
-     * @param type
-     * @param title
-     * @param messageBody
-     */
+    JSONObject jsonObject;
 
-    @PostMapping("/addPost")
-    public String addPost(
+    // 用户发表帖子
+    @PostMapping("/addRecord")
+    public Object addPost(
                         @RequestParam("userID") String userID,
                         @RequestParam("postTime") String postTime,
                         @RequestParam("type") Integer type,
                         @RequestParam("title") String title,
                         @RequestParam("messageBody") String messageBody){
+        jsonObject = new JSONObject();
         // 生成一个id,UUID的变种
         int hashCodeV = UUID.randomUUID().toString().hashCode();
         if (hashCodeV < 0)
@@ -56,40 +49,28 @@ public class PostMessageController {
         PostMessage postMessage = new PostMessage(pid,postTime,type,title,messageBody);
         Posts posts = new Posts(userID,pid,postTime);
         postMessageService.addPost(postMessage,posts);
-        return pid;
+        jsonObject.put("postMessage",postMessage);
+        jsonObject.put("posts",posts);
+        return jsonObject;
     }
 
-    /**
-     * 删除帖子
-     * @param postid
-     */
-    @DeleteMapping("/deletePost/{postid}")
-    public void deletePost(@PathVariable("postid") String postid){
-        postMessageService.deletePost(postid);
+    // 删除帖子
+    @DeleteMapping("/deleteRecord/{postID}")
+    public void deletePost(@PathVariable("postID") String postID){
+        jsonObject = new JSONObject();
+        postMessageService.deletePost(postID);
+        jsonObject.put("message","删除成功!");
     }
 
-    /**
-     * 更新帖子
-     * @param postTime
-     * @param type
-     * @param title
-     * @param messageBody
-     */
-
-    @PutMapping("/updatePost")
-    public void updatePost(
-                        @RequestParam("pid") String pid,
-                        @RequestParam("postTime") String postTime,
-                        @RequestParam("type") Integer type,
-                        @RequestParam("title") String title,
-                        @RequestParam("messageBody") String messageBody){
-        PostMessage postMessage = new PostMessage(pid,postTime,type,title,messageBody);
+    // 用户更新帖子
+    @PutMapping("/updateRecord")
+    public void updatePost(PostMessage postMessage){
+        jsonObject = new JSONObject();
         postMessageService.updatePost(postMessage);
+        jsonObject.put("message","更新成功!");
     }
 
-    /**
-     * 查询某用户发表的所有帖子
-     */
+    // 根据用户id查询出其发表的帖子
     @GetMapping("/findPostsByUID/{uid}")
     public List<PostMessage> findPostsByUid(@PathVariable("uid") String uid){
         List<Posts> posts_list = postsService.getAllPosts(uid);
@@ -100,27 +81,19 @@ public class PostMessageController {
         return postMsg_list;
     }
 
-    /**
-     * 根据帖子的id查询
-     * @param id
-     * @return
-     */
+    // 根据某一个特定的类型查询帖子
+    @GetMapping("/findAllPostsByType/{type}")
+    public List<PostMessage> findAllTypesPost(@PathVariable("type") Integer type){
+        return postMessageService.findTypesPost(type);
+    }
+
+    // 根据帖子的id查询帖子
     @GetMapping("/findPostByID/{postid}")
     public PostMessage findPostByID(@PathVariable("postid") String id){
         return postMessageService.findPost(id);
     }
 
-    /**
-     * 根据类型查询帖子
-     * @param type
-     * @return
-     */
-
-    @GetMapping("/findAllTypesPost/{type}")
-    public List<PostMessage> findAllTypesPost(@PathVariable("type") Integer type){
-        return postMessageService.findTypesPost(type);
-    }
-
+    // 查询出全部的帖子
     @GetMapping("/findAllPostMessages")
     public List<PostMessage> findAllPostMessages(){
         return postMessageService.findAllPost();
