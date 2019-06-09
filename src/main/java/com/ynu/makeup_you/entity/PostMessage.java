@@ -12,8 +12,10 @@ import javax.persistence.*;
 public class PostMessage {
     @Id
     private String pid;
+    @Column(name = "uid")
+    private String uid;
     @Column(name="post_time")
-    private String post_time;
+    private String postTime;
     @Column(name="type")
     private Integer type;
     @Column(name="title")
@@ -28,9 +30,10 @@ public class PostMessage {
 
     }
 
-    public PostMessage(String pid, String postTime, Integer type, String title, String messagebody){
+    public PostMessage(String pid, String uid, String postTime, Integer type, String title, String messagebody){
         this.pid = pid;
-        this.post_time = postTime;
+        this.uid = uid;
+        this.postTime = postTime;
         this.type = type;
         this.title = title;
         this.messagebody = messagebody;
@@ -47,12 +50,20 @@ public class PostMessage {
         this.pid = pid;
     }
 
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
     public String getPostTime() {
-        return post_time;
+        return postTime;
     }
 
     public void setPostTime(String postTime) {
-        this.post_time = postTime;
+        this.postTime = postTime;
     }
 
     public Integer getType() {

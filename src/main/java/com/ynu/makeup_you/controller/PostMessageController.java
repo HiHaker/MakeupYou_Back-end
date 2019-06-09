@@ -2,14 +2,11 @@ package com.ynu.makeup_you.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.ynu.makeup_you.entity.PostMessage;
-import com.ynu.makeup_you.entity.Posts;
 import com.ynu.makeup_you.repository.PostMessageRepository;
 import com.ynu.makeup_you.service.PostMessageService;
-import com.ynu.makeup_you.service.PostsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,8 +23,6 @@ public class PostMessageController {
     private PostMessageService postMessageService;
     @Autowired
     private PostMessageRepository postMessageRepository;
-    @Autowired
-    private PostsService postsService;
 
     JSONObject jsonObject;
 
@@ -46,11 +41,9 @@ public class PostMessageController {
             hashCodeV=-hashCodeV;
         // 长度为10
         String pid = String.format("%010d",hashCodeV);
-        PostMessage postMessage = new PostMessage(pid,postTime,type,title,messageBody);
-        Posts posts = new Posts(userID,pid,postTime);
-        postMessageService.addPost(postMessage,posts);
+        PostMessage postMessage = new PostMessage(pid,userID,postTime,type,title,messageBody);
+        postMessageService.addPost(postMessage);
         jsonObject.put("postMessage",postMessage);
-        jsonObject.put("posts",posts);
         return jsonObject;
     }
 
@@ -70,33 +63,22 @@ public class PostMessageController {
         jsonObject.put("message","更新成功!");
     }
 
-    // 根据用户id查询出其发表的帖子
-    @GetMapping("/findPostsByUID/{uid}")
-    public List<PostMessage> findPostsByUid(@PathVariable("uid") String uid){
-        List<Posts> posts_list = postsService.getAllPosts(uid);
-        List<PostMessage> postMsg_list = new ArrayList<>();
-        for (Posts p:posts_list){
-            postMsg_list.add(postMessageRepository.findById(p.getPostID()).orElse(null));
-        }
-        return postMsg_list;
-    }
-
     // 根据某一个特定的类型查询帖子
     @GetMapping("/findAllPostsByType/{type}")
     public List<PostMessage> findAllTypesPost(@PathVariable("type") Integer type){
-        return postMessageService.findTypesPost(type);
+        return postMessageService.findPostsByType(type);
     }
 
-    // 根据帖子的id查询帖子
-    @GetMapping("/findPostByID/{postid}")
-    public PostMessage findPostByID(@PathVariable("postid") String id){
-        return postMessageService.findPost(id);
+    // 根据用户的id查询其所发表的帖子
+    @GetMapping("/findPostByUid/{userid}")
+    public List<PostMessage> findPostByID(@PathVariable("userid") String id){
+        return postMessageService.findPostsByUid(id);
     }
 
     // 查询出全部的帖子
     @GetMapping("/findAllPostMessages")
     public List<PostMessage> findAllPostMessages(){
-        return postMessageService.findAllPost();
+        return postMessageService.findAllPosts();
     }
 
 }

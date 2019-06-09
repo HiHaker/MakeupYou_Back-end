@@ -1,9 +1,7 @@
 package com.ynu.makeup_you.service;
 
 import com.ynu.makeup_you.entity.PostMessage;
-import com.ynu.makeup_you.entity.Posts;
 import com.ynu.makeup_you.repository.PostMessageRepository;
-import com.ynu.makeup_you.repository.PostsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,16 +16,13 @@ public class PostMessageServiceImpl implements PostMessageService{
 
     @Autowired
     private PostMessageRepository postMessageRepository;
-    @Autowired
-    private PostsRepository postsRepository;
 
     /**
      * 发帖
      */
     @Override
-    public void addPost(PostMessage postMessage, Posts posts) {
+    public void addPost(PostMessage postMessage) {
         postMessageRepository.save(postMessage);
-        postsRepository.save(posts);
     }
 
     /**
@@ -47,28 +42,22 @@ public class PostMessageServiceImpl implements PostMessageService{
     }
 
     /**
-     * 查询某一帖子
+     * 根据用户id查询
+     * @param uid
+     * @return
      */
     @Override
-    public PostMessage findPost(String postid) {
-        return postMessageRepository.findById(postid).orElse(null);
+    public List<PostMessage> findPostsByUid(String uid) {
+        return postMessageRepository.findByUid(uid);
     }
 
-    /**
-     * 根据类型查询帖子
-     */
-
     @Override
-    public List<PostMessage> findTypesPost(Integer type) {
+    public List<PostMessage> findPostsByType(Integer type) {
         return postMessageRepository.findByType(type);
     }
 
-    /**
-     *  查询全部的帖子
-     */
     @Override
-    public List<PostMessage> findAllPost() {
+    public List<PostMessage> findAllPosts() {
         return postMessageRepository.findAll();
     }
-
 }

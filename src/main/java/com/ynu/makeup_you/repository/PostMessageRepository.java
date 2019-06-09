@@ -10,5 +10,6 @@ import java.util.List;
  * BY hujianlong
  */
 public interface PostMessageRepository extends JpaRepository<PostMessage,String> {
+    public List<PostMessage> findByUid(String uid);
     public List<PostMessage> findByType(Integer type);
 }
