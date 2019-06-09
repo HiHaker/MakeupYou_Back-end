@@ -26,51 +26,25 @@ public class CommentsController {
     @Autowired
     private UserRepository userRepository;
 
-    /**
-     * 得到某用户的所有评论
-     * @param id
-     * @return
-     */
-    @GetMapping("/getCommentsForUID/{userid}")
+    // 得到某用户的所有评论
+    @GetMapping("/getCommentsByUID/{userid}")
     public List<Comments> getCommentsForUser(@PathVariable("userid") String id){
         return commentsService.getAllcommentsOfUser(id);
     }
 
-    /**
-     * 得到此帖子下的所有评论
-     * @param id
-     * @return
-     */
-    @GetMapping("/getCommentsForPID/{postid}")
+    // 得到此帖子下的所有评论
+    @GetMapping("/getCommentsByPID/{postid}")
     public List<Comments> getCommentsForPostmsg(@PathVariable("postid") String id){
         return commentsService.getAllCommentsOfPostmsg(id);
     }
 
-    /**
-     * 增加一条评论记录
-     * @param userID
-     * @param postID
-     * @param time
-     * @param msg
-     */
+    // 增加一条评论记录
     @PostMapping("/addRecord")
-    public void addRecord(@RequestParam("userID") String userID,
-                          @RequestParam("postID") String postID,
-                          @RequestParam("time") String time,
-                          @RequestParam("messages") String msg) {
-        Comments comments = new Comments();
-        comments.setUserID(userID);
-        comments.setPostID(postID);
-        comments.setTime(time);
-        comments.setMessage(msg);
+    public void addRecord(Comments comments) {
         commentsService.addRecord(comments);
     }
 
-    /**
-     * 删除一条记录
-     * @param uid
-     * @param pid
-     */
+    // 删除一条记录
     @DeleteMapping("/deleteRecord/{uid,pid}")
     public void deleteRecord(@PathVariable("uid") String uid, @PathVariable("pid") String pid){
         commentsService.deleteRecord(uid,pid);

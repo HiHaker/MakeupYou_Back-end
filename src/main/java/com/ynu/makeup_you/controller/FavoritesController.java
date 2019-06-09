@@ -30,13 +30,8 @@ public class FavoritesController {
     @Autowired
     private UserRepository userRepository;
 
-    /**
-     * 得到某用户的所有收藏
-     * @param id
-     * @return
-     */
-
-    @GetMapping("/getFavoritesForUID/{userid}")
+    // 得到某用户的所有收藏
+    @GetMapping("/getFavoritesByUID/{userid}")
     public List<PostMessage> getFavoritesForUser(@PathVariable("userid") String id){
         List<Favorites> favorites_list = favoritesService.getAllfavorites(id);
         List<PostMessage> post_list = new ArrayList<>();
@@ -46,12 +41,7 @@ public class FavoritesController {
         return post_list;
     }
 
-    /**
-     * 得到所有收藏此帖子的用户
-     * @param id
-     * @return
-     */
-
+    // 得到所有收藏此帖子的用户
     @GetMapping("/getUsersForPID/{postid}")
     public List<User> getUsersForPostmsg(@PathVariable("postid") String id){
         List<Favorites> favorites_list = favoritesService.getAlluser(id);
@@ -62,35 +52,16 @@ public class FavoritesController {
         return user_list;
     }
 
-
-    /**
-     * 增加一条收藏记录
-     * @param userID
-     * @param postID
-     */
-
+    // 增加一条收藏记录
     @PostMapping("/addRecord")
-    public void addRecord(@RequestParam("userID") String userID,
-                          @RequestParam("postID") String postID,
-                          @RequestParam("time") String time){
-        Favorites favorites = new Favorites();
-        favorites.setUserID(userID);
-        favorites.setPostID(postID);
-        favorites.setTime(time);
+    public void addRecord(Favorites favorites){
         favoritesService.addRecord(favorites);
     }
 
-    /**
-     * 删除一条收藏记录
-     * @param uid
-     * @param pid
-     */
-
+    // 删除一条收藏记录
     @DeleteMapping("/deleteRecord/{uid,pid}")
     public void deleteRecord(@PathVariable("uid") String uid, @PathVariable("pid") String pid){
         favoritesService.deleteRecord(uid,pid);
     }
-
-
 
 }

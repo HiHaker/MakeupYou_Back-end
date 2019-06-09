@@ -30,13 +30,8 @@ public class LikesController {
     @Autowired
     private UserRepository userRepository;
 
-
-    /**
-     * 得到某用户的所有点赞
-     * @param id
-     * @return
-     */
-    @GetMapping("/getLikesForUID/{userid}")
+    // 得到某个用户所有点赞的帖子列表
+    @GetMapping("/getLikesByUID/{userid}")
     public List<PostMessage> getFavorites(@PathVariable("userid") String id){
         List<Likes> likes_list = likesService.getAllLikes(id);
         List<PostMessage> post_list = new ArrayList<>();
@@ -46,12 +41,8 @@ public class LikesController {
         return post_list;
     }
 
-    /**
-     * 得到所有点赞此帖子的用户
-     * @param id
-     * @return
-     */
-    @GetMapping("/getUsersForPID/{postid}")
+    // 得到所有点赞此帖子的用户
+    @GetMapping("/getUsersByPID/{postid}")
     public List<User> getUsers(@PathVariable("postid") String id){
         List<Likes> likes_list = likesService.getAlluser(id);
         List<User> user_list = new ArrayList<>();
@@ -61,29 +52,13 @@ public class LikesController {
         return user_list;
     }
 
-    /**
-     * 增加一条点赞记录
-     * @param userID
-     * @param postID
-     * @param time
-     */
+    // 增加点赞记录
     @PostMapping("/addRecord")
-    public void addRecord(@RequestParam("userID") String userID,
-                          @RequestParam("postID") String postID,
-                          @RequestParam("time") String time){
-        Likes likes = new Likes();
-        likes.setUserID(userID);
-        likes.setPostID(postID);
-        likes.setTime(time);
+    public void addRecord(Likes likes){
         likesService.addRecord(likes);
     }
 
-    /**
-     * 删除一条点赞记录
-     * @param uid
-     * @param pid
-     */
-
+    // 删除一条点赞记录
     @DeleteMapping("/deleteRecord/{uid,pid}")
     public void deleteUser(@PathVariable("uid") String uid, @PathVariable("pid") String pid){
         likesService.deleteRecord(uid,pid);
