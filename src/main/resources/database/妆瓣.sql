@@ -1,8 +1,10 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2019/5/25 星期六 下午 14:34:10                    */
+/* Created on:     2019/6/9 星期日 上午 9:57:40                      */
 /*==============================================================*/
 
+
+drop table if exists adminRole;
 
 drop table if exists admin_user;
 
@@ -14,25 +16,34 @@ drop table if exists image;
 
 drop table if exists likes;
 
-drop table if exists post;
-
 drop table if exists postMessage;
 
 drop table if exists relation;
 
+drop table if exists role;
+
 drop table if exists user;
+
+/*==============================================================*/
+/* Table: adminRole                                             */
+/*==============================================================*/
+create table adminRole
+(
+   adminName            varchar(50) not null,
+   roleCode             varchar(30) not null,
+   primary key (adminName, roleCode)
+);
 
 /*==============================================================*/
 /* Table: admin_user                                            */
 /*==============================================================*/
 create table admin_user
 (
-   id                   varchar(50) not null,
    name                 varchar(50) not null,
    password             varchar(50) not null,
    email                varchar(50),
    last_login_time      datetime not null,
-   primary key (id)
+   primary key (name)
 );
 
 /*==============================================================*/
@@ -80,22 +91,12 @@ create table likes
 );
 
 /*==============================================================*/
-/* Table: post                                                  */
-/*==============================================================*/
-create table post
-(
-   userID               varchar(50) not null,
-   postID               varchar(50) not null,
-   time                 datetime not null,
-   primary key (userID, postID)
-);
-
-/*==============================================================*/
 /* Table: postMessage                                           */
 /*==============================================================*/
 create table postMessage
 (
    pid                  varchar(50) not null,
+   uid                  varchar(50),
    post_time             date not null,
    type                 tinyint not null,
    title                varchar(50),
@@ -111,6 +112,16 @@ create table relation
    fans                 varchar(50) not null,
    follows              varchar(50) not null,
    primary key (fans, follows)
+);
+
+/*==============================================================*/
+/* Table: role                                                  */
+/*==============================================================*/
+create table role
+(
+   roleCode             varchar(30) not null,
+   roleName             varchar(30) not null,
+   primary key (roleCode)
 );
 
 /*==============================================================*/
@@ -133,6 +144,12 @@ create table user
    unique key AK_Key_2 (name)
 );
 
+alter table adminRole add constraint FK_Reference_13 foreign key (adminName)
+      references admin_user (name) on delete restrict on update restrict;
+
+alter table adminRole add constraint FK_Reference_14 foreign key (roleCode)
+      references role (roleCode) on delete restrict on update restrict;
+
 alter table comments add constraint FK_Reference_7 foreign key (userID)
       references user (uid) on delete restrict on update restrict;
 
@@ -154,11 +171,8 @@ alter table likes add constraint FK_Reference_3 foreign key (userID)
 alter table likes add constraint FK_Reference_4 foreign key (postID)
       references postMessage (pid) on delete restrict on update restrict;
 
-alter table post add constraint FK_Reference_5 foreign key (userID)
+alter table postMessage add constraint FK_Reference_15 foreign key (uid)
       references user (uid) on delete restrict on update restrict;
-
-alter table post add constraint FK_Reference_6 foreign key (postID)
-      references postMessage (pid) on delete restrict on update restrict;
 
 alter table relation add constraint FK_Reference_11 foreign key (fans)
       references user (uid) on delete restrict on update restrict;
