@@ -7,6 +7,8 @@ import com.ynu.makeup_you.service.PostMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,8 +23,6 @@ import java.util.UUID;
 public class PostMessageController {
     @Autowired
     private PostMessageService postMessageService;
-    @Autowired
-    private PostMessageRepository postMessageRepository;
 
     JSONObject jsonObject;
 
@@ -30,11 +30,14 @@ public class PostMessageController {
     @PostMapping("/addRecord")
     public Object addPost(
                         @RequestParam("userID") String userID,
-                        @RequestParam("postTime") String postTime,
                         @RequestParam("type") Integer type,
                         @RequestParam("title") String title,
                         @RequestParam("messageBody") String messageBody){
         jsonObject = new JSONObject();
+        //获取当前时间
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String postTime = simpleDateFormat.format(date);
         // 生成一个id,UUID的变种
         int hashCodeV = UUID.randomUUID().toString().hashCode();
         if (hashCodeV < 0)
