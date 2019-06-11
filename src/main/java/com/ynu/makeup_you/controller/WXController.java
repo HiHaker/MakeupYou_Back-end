@@ -4,10 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.ynu.makeup_you.entity.PostMessage;
 import com.ynu.makeup_you.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,6 +12,7 @@ import java.util.List;
  * Created on 2019/6/10 0010
  * BY hujianlong
  */
+@CrossOrigin
 @RestController
 @RequestMapping("/wxappservice")
 public class WXController {

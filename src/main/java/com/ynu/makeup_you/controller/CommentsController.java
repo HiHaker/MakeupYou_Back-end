@@ -13,6 +13,7 @@ import java.util.List;
  * Created on 2019/5/16 0016
  * BY hujianlong
  */
+@CrossOrigin
 @RestController
 @RequestMapping("/comments")
 public class CommentsController {

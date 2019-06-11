@@ -16,6 +16,7 @@ import java.util.List;
  * 对用户进行操作的Controller，包括用户注册，用户登录，用户信息更改，注销用户，查询用户
  */
 
+@CrossOrigin
 @RestController
 @RequestMapping("/user")
 public class UserController {

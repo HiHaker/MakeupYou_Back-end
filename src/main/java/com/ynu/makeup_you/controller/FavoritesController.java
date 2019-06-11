@@ -16,7 +16,7 @@ import java.util.List;
  * Created on 2019/5/15 0015
  * BY hujianlong
  */
-
+@CrossOrigin
 @RestController
 @RequestMapping("/favorites")
 public class FavoritesController {

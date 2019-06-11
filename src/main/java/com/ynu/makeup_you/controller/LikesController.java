@@ -16,7 +16,7 @@ import java.util.List;
  * Created on 2019/5/16
  * BY hujianlong
  */
-
+@CrossOrigin
 @RestController
 @RequestMapping("/likes")
 public class LikesController {

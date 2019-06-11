@@ -17,7 +17,7 @@ import java.util.UUID;
  * BY hujianlong
  * 对帖子进行操作的Controller，用户进行发帖，删除贴子，更新帖子
  */
-
+@CrossOrigin
 @RestController
 @RequestMapping("/post")
 public class PostMessageController {

@@ -12,7 +12,7 @@ import java.util.List;
  * Created on 2019/5/27 0027
  * BY hujianlong
  */
-
+@CrossOrigin
 @RestController
 @RequestMapping("/relation")
 public class RelationController {
