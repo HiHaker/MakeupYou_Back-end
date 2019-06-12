@@ -33,11 +33,6 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User findUser(String id) {
-        return userRepository.findById(id).orElse(null);
-    }
-
-    @Override
     public List<User> findAllUser() {
         return userRepository.findAll();
     }

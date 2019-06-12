@@ -2,7 +2,6 @@ package com.ynu.makeup_you.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.ynu.makeup_you.entity.PostMessage;
-import com.ynu.makeup_you.repository.PostMessageRepository;
 import com.ynu.makeup_you.service.PostMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -58,7 +57,7 @@ public class PostMessageController {
         jsonObject.put("message","删除成功!");
     }
 
-    // 用户更新帖子
+    // 用户（编辑）更新帖子
     @PutMapping("/updateRecord")
     public void updatePost(PostMessage postMessage){
         jsonObject = new JSONObject();

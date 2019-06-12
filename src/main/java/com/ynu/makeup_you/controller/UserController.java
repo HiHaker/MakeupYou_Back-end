@@ -58,13 +58,8 @@ public class UserController {
     @PutMapping("/update")
     public Object updateUser(User user){
         jsonObject = new JSONObject();
-        if (userService.getUserByID(user.getUid()) == null){
-            jsonObject.put("message","用户不存在,更新失败!");
-        }else{
-            userService.addUser(user);
-            jsonObject.put("message","更新成功!");
-        }
-
+        userService.updateUser(user);
+        jsonObject.put("message","更新成功!");
         return jsonObject;
     }
 
