@@ -19,12 +19,12 @@ public class AdminUser {
 
     private String last_login_time;
 
-    private List<Role> roles;
-
     @ManyToMany
-    @JoinTable(name = "adminrole",
+    @JoinTable(name = "adminRole",
             joinColumns = @JoinColumn(name = "adminName", referencedColumnName = "name", updatable = false, insertable = false),
             inverseJoinColumns = @JoinColumn(name = "roleCode", referencedColumnName = "roleCode", updatable = false, insertable = false))
+    private List<Role> roles;
+
     public List<Role> getRoles() {
         return roles;
     }

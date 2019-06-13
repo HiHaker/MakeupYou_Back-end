@@ -46,7 +46,6 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.47</version>
         </dependency>
-
         <!--引入jwt依赖-->
         <dependency>
             <groupId>com.auth0</groupId>

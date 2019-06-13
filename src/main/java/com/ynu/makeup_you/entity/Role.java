@@ -19,6 +19,7 @@ public class Role {
 
     private String roleName;
 
+    @ManyToMany(mappedBy = "roles")
     private List<AdminUser> adminUsers;
 
     public String getRoleCode() {
@@ -37,7 +38,6 @@ public class Role {
         this.roleName = roleName;
     }
 
-    @ManyToMany(mappedBy = "roles")
     public List<AdminUser> getAdminUsers() {
         return adminUsers;
     }
