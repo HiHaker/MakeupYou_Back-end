@@ -1,5 +1,6 @@
 package com.ynu.makeup_you.service;
 
+import com.ynu.makeup_you.entity.AdminUser;
 import com.ynu.makeup_you.entity.User;
 
 /**
@@ -7,5 +8,6 @@ import com.ynu.makeup_you.entity.User;
  * BY hujianlong
  */
 public interface TokenService {
-    public String getToken(User user);
+    String getToken(User user);
+    String getToken(AdminUser au);
 }
