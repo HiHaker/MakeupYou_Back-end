@@ -11,12 +11,13 @@ import java.util.List;
 public interface FavoritesService {
 
     /**
-     * 增加一个收藏记录,删除一个收藏记录,根据用户id查询postid,根据postid查询用户id
+     * 增加一个收藏记录,删除一个收藏记录,根据用户id查询postid,根据postid查询用户id,我是否收藏过此帖子
      */
-    public void addRecord(Favorites favorites);
-    public void deleteRecord(String userID, String postID);
+    void addRecord(Favorites favorites);
+    void deleteRecord(String userID, String postID);
 
-    public List<Favorites> getAllfavorites(String userID);
-    public List<Favorites> getAlluser(String postID);
+    List<Favorites> getAllfavorites(String userID);
+    List<Favorites> getAlluser(String postID);
 
+    boolean isFavoritesByMe(String userID, String postID);
 }

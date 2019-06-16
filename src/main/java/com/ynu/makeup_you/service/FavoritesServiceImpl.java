@@ -42,4 +42,15 @@ public class FavoritesServiceImpl implements FavoritesService {
         return favoritesRepository.findByPostID(postID);
     }
 
+    @Override
+    public boolean isFavoritesByMe(String userID, String postID) {
+        CommDoubleKey cdk = new CommDoubleKey();
+        cdk.setUserID(userID);
+        cdk.setPostID(postID);
+        if (favoritesRepository.findById(cdk).orElse(null) == null){
+            return false;
+        }else{
+            return true;
+        }
+    }
 }

@@ -55,4 +55,16 @@ public class RelationImpl implements RelationService {
         }
         return user_list;
     }
+
+    @Override
+    public boolean isFollowed(String fans, String follows) {
+        CommDoubleKey2 cdk = new CommDoubleKey2();
+        cdk.setFans(fans);
+        cdk.setFollows(follows);
+        if (relationRepository.findById(cdk).orElse(null) == null){
+            return false;
+        }else{
+            return true;
+        }
+    }
 }

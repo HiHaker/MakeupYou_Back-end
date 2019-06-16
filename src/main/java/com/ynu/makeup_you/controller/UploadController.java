@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.ynu.makeup_you.entity.Image;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,6 +24,9 @@ import java.util.List;
  */
 @Controller
 public class UploadController {
+    @Value(value = "${data.filePath}")
+    String filePath;
+
     private static final Logger LOGGER = LoggerFactory.getLogger(UploadController.class);
 
     @Autowired
@@ -38,7 +42,6 @@ public class UploadController {
     public String multiUpload(HttpServletRequest request,
                               @PathVariable("id")String id) {
         List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("file");
-        String filePath = "D:/";
         for (int i = 0; i < files.size(); i++) {
             MultipartFile file = files.get(i);
             if (file.isEmpty()) {

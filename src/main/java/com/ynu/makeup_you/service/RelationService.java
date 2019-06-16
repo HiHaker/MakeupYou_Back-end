@@ -11,10 +11,11 @@ import java.util.List;
  */
 public interface RelationService {
     /**
-     * 增加一条关注记录，删除一条关注记录，查询对应用户的所有粉丝，查询对应用户的所有关注
+     * 增加一条关注记录，删除一条关注记录，查询对应用户的所有粉丝，查询对应用户的所有关注,是否关注了对应用户
      */
-    public void addFollow(Relation relation);
-    public void deleteFollow(String fansID, String followID);
-    public List<User> findFans(String uid);
-    public List<User> findFollows(String uid);
+    void addFollow(Relation relation);
+    void deleteFollow(String fansID, String followID);
+    List<User> findFans(String uid);
+    List<User> findFollows(String uid);
+    boolean isFollowed(String fans, String follows);
 }

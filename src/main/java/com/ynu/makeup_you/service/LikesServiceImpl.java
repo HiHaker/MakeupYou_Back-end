@@ -40,4 +40,16 @@ public class LikesServiceImpl implements LikesService {
     public List<Likes> getAlluser(String postID) {
         return likesRepository.findByPostID(postID);
     }
+
+    @Override
+    public boolean isLikedByMe(String userID, String postID) {
+        CommDoubleKey cdk = new CommDoubleKey();
+        cdk.setUserID(userID);
+        cdk.setPostID(postID);
+       if (likesRepository.findById(cdk).orElse(null) == null){
+           return false;
+       }else{
+           return true;
+       }
+    }
 }

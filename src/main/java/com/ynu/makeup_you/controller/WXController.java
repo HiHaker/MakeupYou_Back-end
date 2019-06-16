@@ -6,6 +6,7 @@ import com.ynu.makeup_you.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,40 +31,50 @@ public class WXController {
     RelationService relationService;
 
     JSONObject jsonObject;
-    JSONObject messages;
 
     @GetMapping("/getMainPage")
-    public Object getMainPage(){
+    public List<Object> getMainPage(@RequestParam("userID") String uid){
         jsonObject = new JSONObject();
-        messages = new JSONObject();
+        List<Object> jsons = new ArrayList<>();
         // 查询所有的帖子信息
         List<PostMessage> postList = postMessageService.findAllPosts();
         for (PostMessage pm: postList){
+            jsonObject.put("pid",pm.getPid());
+            jsonObject.put("uid",pm.getUid());
             jsonObject.put("userHeadURL",userService.getUserByID(pm.getUid()).getAvatarID());
             jsonObject.put("userName",userService.getUserByID(pm.getUid()).getName());
-            jsonObject.put("postMessage",pm);
+            jsonObject.put("publishTime",pm.getPostTime());
+            jsonObject.put("title",pm.getTitle());
+            jsonObject.put("content",pm.getMessagebody());
             // 点赞
-            jsonObject.put("likes",likesService.getAlluser(pm.getPid()));
+            jsonObject.put("likes",likesService.getAlluser(pm.getPid()).size());
             // 收藏
-            jsonObject.put("favorites",favoritesService.getAlluser(pm.getPid()));
+            jsonObject.put("favorites",favoritesService.getAlluser(pm.getPid()).size());
+            // 当前用户是否点赞
+            jsonObject.put("isLike",likesService.isLikedByMe(uid,pm.getPid()));
+            // 当前用户是否收藏
+            jsonObject.put("isCollection",favoritesService.isFavoritesByMe(uid,pm.getPid()));
+            // 我是否关注了这个用户
+            jsonObject.put("isAttent",relationService.isFollowed(uid,pm.getUid()));
             // 评论
             jsonObject.put("comments",commentsService.getAllCommentsOfPostmsg(pm.getPid()));
-            messages.put("",jsonObject);
+            jsons.add(new JSONObject(jsonObject));
+            jsonObject = new JSONObject();
         }
-        return messages;
+        return jsons;
     }
 
-    @GetMapping("/getUserPage/{userID}")
-    public Object getUserPage(@PathVariable("userID") String uid){
+    @GetMapping("/getUserPage")
+    public Object getUserPage(@RequestParam("userID") String uid){
         jsonObject = new JSONObject();
         jsonObject.put("userHeadURL",userService.getUserByID(uid).getAvatarID());
         jsonObject.put("userName",userService.getUserByID(uid).getName());
         jsonObject.put("description",userService.getUserByID(uid).getDescription());
-        jsonObject.put("likes",likesService.getAllLikes(uid));
-        jsonObject.put("favorites",favoritesService.getAllfavorites(uid));
+        jsonObject.put("likes",likesService.getAllLikes(uid).size());
+        jsonObject.put("favorites",favoritesService.getAllfavorites(uid).size());
         jsonObject.put("comments",favoritesService.getAllfavorites(uid));
-        jsonObject.put("follows",relationService.findFollows(uid));
-        jsonObject.put("fans",relationService.findFans(uid));
+        jsonObject.put("follows",relationService.findFollows(uid).size());
+        jsonObject.put("fans",relationService.findFans(uid).size());
         return jsonObject;
     }
 }
