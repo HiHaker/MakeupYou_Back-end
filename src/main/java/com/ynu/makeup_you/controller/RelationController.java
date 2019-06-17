@@ -50,8 +50,8 @@ public class RelationController {
      * @param uid
      * @return
      */
-    @GetMapping("/findFans/{uid}")
-    public List<User> getAllFans(@PathVariable("uid") String uid){
+    @GetMapping("/findFans")
+    public List<User> getAllFans(@RequestParam("userID") String uid){
         List<User> fanslist = relationService.findFans(uid);
         return fanslist;
     }
@@ -61,8 +61,8 @@ public class RelationController {
      * @param uid
      * @return
      */
-    @GetMapping("/findFollows/{uid}")
-    public List<User> getAllFollows(@PathVariable("uid") String uid){
+    @GetMapping("/findFollows")
+    public List<User> getAllFollows(@RequestParam("userID") String uid){
         List<User> followslist = relationService.findFollows(uid);
         return followslist;
     }

@@ -50,8 +50,8 @@ public class PostMessageController {
     }
 
     // 删除帖子
-    @DeleteMapping("/deleteRecord/{postID}")
-    public void deletePost(@PathVariable("postID") String postID){
+    @DeleteMapping("/deleteRecord")
+    public void deletePost(@RequestParam("postID") String postID){
         jsonObject = new JSONObject();
         postMessageService.deletePost(postID);
         jsonObject.put("message","删除成功!");
@@ -66,14 +66,14 @@ public class PostMessageController {
     }
 
     // 根据某一个特定的类型查询帖子
-    @GetMapping("/findAllPostsByType/{type}")
-    public List<PostMessage> findAllTypesPost(@PathVariable("type") Integer type){
+    @GetMapping("/findAllPostsByType")
+    public List<PostMessage> findAllTypesPost(@RequestParam("type") Integer type){
         return postMessageService.findPostsByType(type);
     }
 
     // 根据用户的id查询其所发表的帖子
-    @GetMapping("/findPostByUid/{userid}")
-    public List<PostMessage> findPostByID(@PathVariable("userid") String id){
+    @GetMapping("/findPostByUid")
+    public List<PostMessage> findPostByID(@RequestParam("userID") String id){
         return postMessageService.findPostsByUid(id);
     }
 

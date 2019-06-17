@@ -31,8 +31,8 @@ public class FavoritesController {
     private UserRepository userRepository;
 
     // 得到某用户的所有收藏
-    @GetMapping("/getFavoritesByUID/{userid}")
-    public List<PostMessage> getFavoritesForUser(@PathVariable("userid") String id){
+    @GetMapping("/getFavoritesByUID")
+    public List<PostMessage> getFavoritesForUser(@RequestParam("userID") String id){
         List<Favorites> favorites_list = favoritesService.getAllfavorites(id);
         List<PostMessage> post_list = new ArrayList<>();
         for (Favorites f:favorites_list){
@@ -42,8 +42,8 @@ public class FavoritesController {
     }
 
     // 得到所有收藏此帖子的用户
-    @GetMapping("/getUsersForPID/{postid}")
-    public List<User> getUsersForPostmsg(@PathVariable("postid") String id){
+    @GetMapping("/getUsersForPID")
+    public List<User> getUsersForPostmsg(@RequestParam("postID") String id){
         List<Favorites> favorites_list = favoritesService.getAlluser(id);
         List<User> user_list = new ArrayList<>();
         for (Favorites f:favorites_list){
@@ -59,8 +59,8 @@ public class FavoritesController {
     }
 
     // 删除一条收藏记录
-    @DeleteMapping("/deleteRecord/{uid,pid}")
-    public void deleteRecord(@PathVariable("uid") String uid, @PathVariable("pid") String pid){
+    @DeleteMapping("/deleteRecord")
+    public void deleteRecord(@RequestParam("userID") String uid, @RequestParam("postID") String pid){
         favoritesService.deleteRecord(uid,pid);
     }
 

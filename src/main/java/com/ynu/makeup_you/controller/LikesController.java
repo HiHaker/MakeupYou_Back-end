@@ -31,8 +31,8 @@ public class LikesController {
     private UserRepository userRepository;
 
     // 得到某个用户所有点赞的帖子列表
-    @GetMapping("/getLikesByUID/{userid}")
-    public List<PostMessage> getFavorites(@PathVariable("userid") String id){
+    @GetMapping("/getLikesByUID")
+    public List<PostMessage> getFavorites(@RequestParam("userID") String id){
         List<Likes> likes_list = likesService.getAllLikes(id);
         List<PostMessage> post_list = new ArrayList<>();
         for (Likes l:likes_list){
@@ -42,8 +42,8 @@ public class LikesController {
     }
 
     // 得到所有点赞此帖子的用户
-    @GetMapping("/getUsersByPID/{postid}")
-    public List<User> getUsers(@PathVariable("postid") String id){
+    @GetMapping("/getUsersByPID")
+    public List<User> getUsers(@RequestParam("postID") String id){
         List<Likes> likes_list = likesService.getAlluser(id);
         List<User> user_list = new ArrayList<>();
         for (Likes l:likes_list){
@@ -59,8 +59,8 @@ public class LikesController {
     }
 
     // 删除一条点赞记录
-    @DeleteMapping("/deleteRecord/{uid,pid}")
-    public void deleteUser(@PathVariable("uid") String uid, @PathVariable("pid") String pid){
+    @DeleteMapping("/deleteRecord")
+    public void deleteUser(@RequestParam("userID") String uid, @RequestParam("postID") String pid){
         likesService.deleteRecord(uid,pid);
     }
 }

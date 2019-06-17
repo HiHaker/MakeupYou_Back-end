@@ -22,8 +22,8 @@ public class ImageController {
      * @param postID
      * @return
      */
-    @GetMapping("/getAllImg/{postID}")
-    public List<String> getAllImg(@PathVariable("postID") String postID){
+    @GetMapping("/getAllImg")
+    public List<String> getAllImg(@RequestParam("postID") String postID){
         return imageService.getAllImg(postID);
     }
 }

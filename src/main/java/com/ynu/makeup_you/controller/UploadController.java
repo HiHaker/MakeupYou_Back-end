@@ -37,10 +37,10 @@ public class UploadController {
         return "multiUpload";
     }
 
-    @PostMapping("/multiUpload/{id}")
+    @PostMapping("/multiUpload")
     @ResponseBody
     public String multiUpload(HttpServletRequest request,
-                              @PathVariable("id")String id) {
+                              @RequestParam("postID") String id) {
         List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("file");
         for (int i = 0; i < files.size(); i++) {
             MultipartFile file = files.get(i);

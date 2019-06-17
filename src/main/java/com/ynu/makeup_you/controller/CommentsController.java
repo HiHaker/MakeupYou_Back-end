@@ -28,14 +28,14 @@ public class CommentsController {
     private UserRepository userRepository;
 
     // 得到某用户的所有评论
-    @GetMapping("/getCommentsByUID/{userid}")
-    public List<Comments> getCommentsForUser(@PathVariable("userid") String id){
+    @GetMapping("/getCommentsByUID")
+    public List<Comments> getCommentsForUser(@RequestParam("userID") String id){
         return commentsService.getAllcommentsOfUser(id);
     }
 
     // 得到此帖子下的所有评论
-    @GetMapping("/getCommentsByPID/{postid}")
-    public List<Comments> getCommentsForPostmsg(@PathVariable("postid") String id){
+    @GetMapping("/getCommentsByPID")
+    public List<Comments> getCommentsForPostmsg(@RequestParam("postID") String id){
         return commentsService.getAllCommentsOfPostmsg(id);
     }
 
@@ -46,8 +46,8 @@ public class CommentsController {
     }
 
     // 删除一条记录
-    @DeleteMapping("/deleteRecord/{uid,pid}")
-    public void deleteRecord(@PathVariable("uid") String uid, @PathVariable("pid") String pid){
+    @DeleteMapping("/deleteRecord")
+    public void deleteRecord(@RequestParam("userID") String uid, @RequestParam("postID") String pid){
         commentsService.deleteRecord(uid,pid);
     }
 
