@@ -7,6 +7,8 @@ import com.ynu.makeup_you.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * Created on 2019/6/13 0013
  * BY hujianlong
@@ -41,6 +43,14 @@ public class AdminUserController {
                 return jsonObject;
             }
         }
+    }
+
+    // 查看所有管理员
+    @GetMapping("/findAllAdmin")
+    public List<AdminUser> findAllAdmin(){
+        jsonObject = new JSONObject();
+        List<AdminUser> auList = adminUserService.findAllAdmin();
+        return auList;
     }
 
     // 增加管理员

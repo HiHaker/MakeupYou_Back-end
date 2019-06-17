@@ -5,6 +5,8 @@ import com.ynu.makeup_you.repository.AdminUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created on 2019/6/13 0013
  * BY hujianlong
@@ -31,5 +33,10 @@ public class AdminUserServiceImpl implements AdminUserService {
     @Override
     public AdminUser findAdminByName(String name) {
         return adminUserRepository.findById(name).orElse(null);
+    }
+
+    @Override
+    public List<AdminUser> findAllAdmin() {
+        return adminUserRepository.findAll();
     }
 }
