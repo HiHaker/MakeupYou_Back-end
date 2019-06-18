@@ -24,6 +24,11 @@ public class CommentsServiceImpl implements  CommentsService{
     }
 
     @Override
+    public void deleteByUID(String userID) {
+        commentsRepository.deleteByUserID(userID);
+    }
+
+    @Override
     public void deleteRecord(String userID, String postID) {
         CommDoubleKey commentsKey = new CommDoubleKey();
         commentsKey.setUserID(userID);

@@ -13,7 +13,7 @@ import java.util.List;
  * Created on 2019/6/13 0013
  * BY hujianlong
  */
-
+@CrossOrigin
 @RestController
 @RequestMapping("/adminUser")
 public class AdminUserController {

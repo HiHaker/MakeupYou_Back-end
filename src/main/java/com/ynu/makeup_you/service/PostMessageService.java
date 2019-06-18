@@ -12,10 +12,11 @@ public interface PostMessageService {
     /**
      * 发帖、删除帖子、编辑帖子、根据用户id查询帖子，根据类型查询帖子，查询全部的帖子
      */
-    public void addPost(PostMessage postMessage);
-    public void deletePost(String postid);
-    public void updatePost(PostMessage postMessage);
-    public List<PostMessage> findPostsByUid(String uid);
-    public List<PostMessage> findPostsByType(Integer type);
-    public List<PostMessage> findAllPosts();
+    void addPost(PostMessage postMessage);
+    void deletePostByUID(String userID);
+    void deletePost(String postid);
+    void updatePost(PostMessage postMessage);
+    List<PostMessage> findPostsByUid(String uid);
+    List<PostMessage> findPostsByType(Integer type);
+    List<PostMessage> findAllPosts();
 }

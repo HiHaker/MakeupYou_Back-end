@@ -16,13 +16,16 @@ public interface RelationRepository extends JpaRepository<Relation, CommDoubleKe
      * @param fansID
      * @return
      */
-    public List<Relation> findByFans(String fansID);
+    List<Relation> findByFans(String fansID);
 
     /**
      * 找到对应用户的所有粉丝的数据行
      * @param fansID
      * @return
      */
-    public List<Relation> findByFollows(String fansID);
+    List<Relation> findByFollows(String fansID);
+
+    void deleteByFans(String fansID);
+    void deleteByFollows(String followsID);
 
 }

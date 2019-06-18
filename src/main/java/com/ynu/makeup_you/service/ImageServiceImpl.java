@@ -26,4 +26,9 @@ public class ImageServiceImpl implements ImageService {
         }
         return imgList;
     }
+
+    @Override
+    public void deleteImgByPID(String postID) {
+        imageRepository.deleteByPostID(postID);
+    }
 }

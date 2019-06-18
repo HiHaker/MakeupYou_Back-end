@@ -16,6 +16,8 @@ public class PostMessageServiceImpl implements PostMessageService{
 
     @Autowired
     private PostMessageRepository postMessageRepository;
+    @Autowired
+    private ImageService imageService;
 
     /**
      * 发帖
@@ -25,12 +27,21 @@ public class PostMessageServiceImpl implements PostMessageService{
         postMessageRepository.save(postMessage);
     }
 
+    @Override
+    public void deletePostByUID(String userID) {
+        List<PostMessage> postList = postMessageRepository.findByUid(userID);
+        for (PostMessage p:postList){
+            this.deletePost(p.getPid());
+        }
+    }
+
     /**
      * 删除帖
      */
     @Override
-    public void deletePost(String postid) {
-        postMessageRepository.deleteById(postid);
+    public void deletePost(String postID) {
+        imageService.deleteImgByPID(postID);
+        postMessageRepository.deleteById(postID);
     }
 
     /**

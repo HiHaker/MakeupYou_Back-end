@@ -16,5 +16,6 @@ public interface ImageRepository extends JpaRepository<Image, CommDoubleKey3> {
      * @param postID
      * @return
      */
-    public List<Image> findByPostID(String postID);
+    List<Image> findByPostID(String postID);
+    void deleteByPostID(String postID);
 }

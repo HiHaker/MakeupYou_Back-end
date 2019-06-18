@@ -42,8 +42,8 @@ public class UserController {
     }
 
     // 删除用户
-    @DeleteMapping("/delete/{userid}")
-    public Object deleteUser(@PathVariable("userid") String id){
+    @DeleteMapping("/delete")
+    public Object deleteUser(@RequestParam("userID") String id){
         jsonObject = new JSONObject();
         if (userService.getUserByID(id) == null){
             jsonObject.put("message","用户不存在,删除失败!");
@@ -64,14 +64,14 @@ public class UserController {
     }
 
     // 根据用户名查用户
-    @GetMapping("/findUserByName/{name}")
-    public User findUserByName(@PathVariable("name") String name){
+    @GetMapping("/findUserByName")
+    public User findUserByName(@RequestParam("name") String name){
         return userService.getUserByName(name);
     }
 
     // 根据用户id查询用户
-    @GetMapping("/findUserByID/{id}")
-    public User findUserByID(@PathVariable("id") String id){
+    @GetMapping("/findUserByID")
+    public User findUserByID(@RequestParam("userID") String id){
         return userService.getUserByID(id);
     }
 

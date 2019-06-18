@@ -15,7 +15,7 @@ public interface FavoritesService {
      */
     void addRecord(Favorites favorites);
     void deleteRecord(String userID, String postID);
-
+    void deleteByUID(String userID);
     List<Favorites> getAllfavorites(String userID);
     List<Favorites> getAlluser(String postID);
 

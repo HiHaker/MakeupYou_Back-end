@@ -33,6 +33,11 @@ public class FavoritesServiceImpl implements FavoritesService {
     }
 
     @Override
+    public void deleteByUID(String userID) {
+        favoritesRepository.deleteByUserID(userID);
+    }
+
+    @Override
     public List<Favorites> getAllfavorites(String userID) {
         return favoritesRepository.findByUserID(userID);
     }

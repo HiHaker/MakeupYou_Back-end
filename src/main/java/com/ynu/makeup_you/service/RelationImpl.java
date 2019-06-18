@@ -37,6 +37,16 @@ public class RelationImpl implements RelationService {
     }
 
     @Override
+    public void deleteByFans(String fansID) {
+        relationRepository.deleteByFans(fansID);
+    }
+
+    @Override
+    public void deleteByFollows(String followsID) {
+        relationRepository.deleteByFollows(followsID);
+    }
+
+    @Override
     public List<User> findFans(String uid) {
         List<Relation> relations_list = relationRepository.findByFollows(uid);
         List<User> user_list = new ArrayList<>();

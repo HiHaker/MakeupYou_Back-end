@@ -15,6 +15,8 @@ public interface RelationService {
      */
     void addFollow(Relation relation);
     void deleteFollow(String fansID, String followID);
+    void deleteByFans(String fansID);
+    void deleteByFollows(String followsID);
     List<User> findFans(String uid);
     List<User> findFollows(String uid);
     boolean isFollowed(String fans, String follows);

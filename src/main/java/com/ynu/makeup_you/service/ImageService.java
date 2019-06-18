@@ -12,5 +12,6 @@ public interface ImageService {
      * @param postID
      * @return
      */
-    public List<String> getAllImg(String postID);
+    List<String> getAllImg(String postID);
+    void deleteImgByPID(String postID);
 }

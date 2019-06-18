@@ -1,5 +1,6 @@
 package com.ynu.makeup_you.service;
 
+import com.ynu.makeup_you.entity.Favorites;
 import com.ynu.makeup_you.entity.User;
 import com.ynu.makeup_you.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,16 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private FavoritesService favoritesService;
+    @Autowired
+    private LikesService likesService;
+    @Autowired
+    private PostMessageService postMessageService;
+    @Autowired
+    private CommentsService commentsService;
+    @Autowired
+    private RelationService relationService;
 
     @Override
     public void addUser(User user) {
@@ -24,6 +35,12 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void deleteUser(String id) {
+        favoritesService.deleteByUID(id);
+        likesService.deleteByUID(id);
+        postMessageService.deletePostByUID(id);
+        commentsService.deleteByUID(id);
+        relationService.deleteByFans(id);
+        relationService.deleteByFollows(id);
         userRepository.deleteById(id);
     }
 
