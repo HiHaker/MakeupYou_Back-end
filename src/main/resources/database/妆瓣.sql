@@ -4,7 +4,7 @@
 /*==============================================================*/
 
 
-drop table if exists adminRole;
+drop table if exists admin_role;
 
 drop table if exists admin_user;
 
@@ -27,11 +27,11 @@ drop table if exists user;
 /*==============================================================*/
 /* Table: adminRole                                             */
 /*==============================================================*/
-create table adminRole
+create table admin_role
 (
-   adminName            varchar(50) not null,
-   roleCode             varchar(30) not null,
-   primary key (adminName, roleCode)
+   admin_name            varchar(50) not null,
+   role_code             varchar(30) not null,
+   primary key (admin_name, role_code)
 );
 
 /*==============================================================*/
@@ -119,9 +119,9 @@ create table relation
 /*==============================================================*/
 create table role
 (
-   roleCode             varchar(30) not null,
-   roleName             varchar(30) not null,
-   primary key (roleCode)
+   role_code             varchar(30) not null,
+   role_name             varchar(30) not null,
+   primary key (role_code)
 );
 
 /*==============================================================*/
@@ -144,11 +144,11 @@ create table user
    unique key AK_Key_2 (name)
 );
 
-alter table adminRole add constraint FK_Reference_13 foreign key (adminName)
+alter table admin_role add constraint FK_Reference_13 foreign key (admin_name)
       references admin_user (name) on delete restrict on update restrict;
 
-alter table adminRole add constraint FK_Reference_14 foreign key (roleCode)
-      references role (roleCode) on delete restrict on update restrict;
+alter table admin_role add constraint FK_Reference_14 foreign key (role_code)
+      references role (role_code) on delete restrict on update restrict;
 
 alter table comments add constraint FK_Reference_7 foreign key (userID)
       references user (uid) on delete restrict on update restrict;

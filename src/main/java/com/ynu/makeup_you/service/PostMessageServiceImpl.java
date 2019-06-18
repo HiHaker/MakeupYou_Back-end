@@ -52,6 +52,11 @@ public class PostMessageServiceImpl implements PostMessageService{
         postMessageRepository.save(postMessage);
     }
 
+    @Override
+    public PostMessage findPostsByID(String postID) {
+        return postMessageRepository.findById(postID).orElse(null);
+    }
+
     /**
      * 根据用户id查询
      * @param uid

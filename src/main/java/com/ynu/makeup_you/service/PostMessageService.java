@@ -16,6 +16,7 @@ public interface PostMessageService {
     void deletePostByUID(String userID);
     void deletePost(String postid);
     void updatePost(PostMessage postMessage);
+    PostMessage findPostsByID(String postID);
     List<PostMessage> findPostsByUid(String uid);
     List<PostMessage> findPostsByType(Integer type);
     List<PostMessage> findAllPosts();

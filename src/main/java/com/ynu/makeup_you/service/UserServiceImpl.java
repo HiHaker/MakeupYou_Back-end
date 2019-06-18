@@ -37,8 +37,8 @@ public class UserServiceImpl implements UserService{
     public void deleteUser(String id) {
         favoritesService.deleteByUID(id);
         likesService.deleteByUID(id);
-        postMessageService.deletePostByUID(id);
         commentsService.deleteByUID(id);
+        postMessageService.deletePostByUID(id);
         relationService.deleteByFans(id);
         relationService.deleteByFollows(id);
         userRepository.deleteById(id);
