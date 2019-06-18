@@ -1,6 +1,8 @@
 package com.ynu.makeup_you.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.ynu.makeup_you.entity.Comments;
+import com.ynu.makeup_you.entity.CommentsShow;
 import com.ynu.makeup_you.entity.PostMessage;
 import com.ynu.makeup_you.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +59,14 @@ public class WXController {
             // 我是否关注了这个用户
             jsonObject.put("isAttent",relationService.isFollowed(uid,pm.getUid()));
             // 评论
-            jsonObject.put("comments",commentsService.getAllCommentsOfPostmsg(pm.getPid()));
+            List<Comments> commentsList = commentsService.getAllCommentsOfPostmsg(pm.getPid());
+            List<CommentsShow> commentsShowList = new ArrayList<>();
+            for (Comments c:commentsList){
+                CommentsShow commentsShow = new CommentsShow(c);
+                commentsShow.setUserName(userService.getUserByID(c.getUserID()).getName());
+                commentsShowList.add(commentsShow);
+            }
+            jsonObject.put("comments",commentsShowList);
             jsons.add(new JSONObject(jsonObject));
             jsonObject = new JSONObject();
         }
