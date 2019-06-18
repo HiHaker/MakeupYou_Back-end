@@ -5,6 +5,7 @@ import com.ynu.makeup_you.repository.PostMessageRepository;
 import com.ynu.makeup_you.repository.UserRepository;
 import com.ynu.makeup_you.service.CommentsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,12 +42,14 @@ public class CommentsController {
 
     // 增加一条评论记录
     @PostMapping("/addRecord")
+    @Transactional
     public void addRecord(Comments comments) {
         commentsService.addRecord(comments);
     }
 
     // 删除一条记录
     @DeleteMapping("/deleteRecord")
+    @Transactional
     public void deleteRecord(@RequestParam("userID") String uid, @RequestParam("postID") String pid){
         commentsService.deleteRecord(uid,pid);
     }

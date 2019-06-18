@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.ynu.makeup_you.entity.PostMessage;
 import com.ynu.makeup_you.service.PostMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
@@ -27,6 +28,7 @@ public class PostMessageController {
 
     // 用户发表帖子
     @PostMapping("/addRecord")
+    @Transactional
     public Object addPost(
                         @RequestParam("userID") String userID,
                         @RequestParam("type") Integer type,
@@ -51,6 +53,7 @@ public class PostMessageController {
 
     // 删除帖子
     @DeleteMapping("/deleteRecord")
+    @Transactional
     public void deletePost(@RequestParam("postID") String postID){
         jsonObject = new JSONObject();
         postMessageService.deletePost(postID);
@@ -59,6 +62,7 @@ public class PostMessageController {
 
     // 用户（编辑）更新帖子
     @PutMapping("/updateRecord")
+    @Transactional
     public void updatePost(PostMessage postMessage){
         jsonObject = new JSONObject();
         postMessageService.updatePost(postMessage);

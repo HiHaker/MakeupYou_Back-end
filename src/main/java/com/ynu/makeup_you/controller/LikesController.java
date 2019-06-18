@@ -7,6 +7,7 @@ import com.ynu.makeup_you.repository.PostMessageRepository;
 import com.ynu.makeup_you.repository.UserRepository;
 import com.ynu.makeup_you.service.LikesService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -54,12 +55,14 @@ public class LikesController {
 
     // 增加点赞记录
     @PostMapping("/addRecord")
+    @Transactional
     public void addRecord(Likes likes){
         likesService.addRecord(likes);
     }
 
     // 删除一条点赞记录
     @DeleteMapping("/deleteRecord")
+    @Transactional
     public void deleteUser(@RequestParam("userID") String uid, @RequestParam("postID") String pid){
         likesService.deleteRecord(uid,pid);
     }

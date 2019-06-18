@@ -5,6 +5,7 @@ import com.ynu.makeup_you.entity.AdminUser;
 import com.ynu.makeup_you.service.AdminUserService;
 import com.ynu.makeup_you.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -55,6 +56,7 @@ public class AdminUserController {
 
     // 增加管理员
     @PostMapping("/addAdminUser")
+    @Transactional
     public Object addAdminUser(AdminUser au){
         jsonObject = new JSONObject();
         if (adminUserService.findAdminByName(au.getName()) == null){
@@ -68,6 +70,7 @@ public class AdminUserController {
 
     // 删除管理员
     @DeleteMapping("/deleteAdminUser")
+    @Transactional
     public Object deleteAdminUser(@RequestParam("name") String name){
         jsonObject = new JSONObject();
         if (adminUserService.findAdminByName(name) == null){
@@ -81,6 +84,7 @@ public class AdminUserController {
 
     // 更新管理员
     @PutMapping("/updateAdminUser")
+    @Transactional
     public Object updateAdminUser(AdminUser au){
         jsonObject = new JSONObject();
         if (adminUserService.findAdminByName(au.getName()) == null){

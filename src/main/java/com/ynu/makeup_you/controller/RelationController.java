@@ -4,6 +4,7 @@ import com.ynu.makeup_you.entity.Relation;
 import com.ynu.makeup_you.entity.User;
 import com.ynu.makeup_you.service.RelationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,6 +30,7 @@ public class RelationController {
      * @param followsID
      */
     @PostMapping("/addRelation")
+    @Transactional
     public void addRelation(@RequestParam("fansID") String fansID, @RequestParam("followsID") String followsID){
         Relation relation = new Relation(fansID,followsID);
         relationService.addFollow(relation);
@@ -40,6 +42,7 @@ public class RelationController {
      * @param followsID
      */
     @DeleteMapping("/deleteRelation")
+    @Transactional
     public void deleteRelation(@RequestParam("fansID") String fansID, @RequestParam("followsID") String followsID){
         relationService.deleteFollow(fansID, followsID);
     }

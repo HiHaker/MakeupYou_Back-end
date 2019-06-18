@@ -6,6 +6,7 @@ import com.ynu.makeup_you.entity.User;
 import com.ynu.makeup_you.service.TokenService;
 import com.ynu.makeup_you.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,6 +30,7 @@ public class UserController {
 
     // 用户注册
     @PostMapping("/register")
+    @Transactional
     public Object registerUser(User user){
         jsonObject = new JSONObject();
         User userBase = userService.getUserByID(user.getUid());
@@ -43,6 +45,7 @@ public class UserController {
 
     // 删除用户
     @DeleteMapping("/delete")
+    @Transactional
     public Object deleteUser(@RequestParam("userID") String id){
         jsonObject = new JSONObject();
         if (userService.getUserByID(id) == null){
@@ -56,6 +59,7 @@ public class UserController {
 
     // 更新用户
     @PutMapping("/update")
+    @Transactional
     public Object updateUser(User user){
         jsonObject = new JSONObject();
         userService.updateUser(user);
