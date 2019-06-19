@@ -15,6 +15,7 @@ public interface LikesService {
      */
     void addRecord(Likes likes);
     void deleteByUID(String userID);
+    void deleteByPID(String postID);
     void deleteRecord(String userID, String postID);
 
     List<Likes> getAllLikes(String userID);

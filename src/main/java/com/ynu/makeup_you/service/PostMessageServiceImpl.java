@@ -17,6 +17,12 @@ public class PostMessageServiceImpl implements PostMessageService{
     @Autowired
     private PostMessageRepository postMessageRepository;
     @Autowired
+    private FavoritesService favoritesService;
+    @Autowired
+    private LikesService likesService;
+    @Autowired
+    private CommentsService commentsService;
+    @Autowired
     private ImageService imageService;
 
     /**
@@ -40,6 +46,9 @@ public class PostMessageServiceImpl implements PostMessageService{
      */
     @Override
     public void deletePost(String postID) {
+        favoritesService.deleteByPID(postID);
+        likesService.deleteByPID(postID);
+        commentsService.deleteByPID(postID);
         imageService.deleteImgByPID(postID);
         postMessageRepository.deleteById(postID);
     }

@@ -29,6 +29,11 @@ public class LikesServiceImpl implements LikesService {
     }
 
     @Override
+    public void deleteByPID(String postID) {
+        likesRepository.deleteByPostID(postID);
+    }
+
+    @Override
     public void deleteRecord(String userID, String postID) {
         CommDoubleKey likesKey = new CommDoubleKey();
         likesKey.setUserID(userID);

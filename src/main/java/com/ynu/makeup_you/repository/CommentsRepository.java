@@ -12,6 +12,7 @@ import java.util.List;
  */
 public interface CommentsRepository extends JpaRepository<Comments, CommDoubleKey> {
     void deleteByUserID(String userID);
+    void deleteByPostID(String postID);
     List<Comments> findByUserID(String uid);
     List<Comments> findByPostID(String postid);
 }

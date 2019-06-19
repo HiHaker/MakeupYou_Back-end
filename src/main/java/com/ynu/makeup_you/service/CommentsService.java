@@ -15,6 +15,7 @@ public interface CommentsService {
      */
     void addRecord(Comments comments);
     void deleteByUID(String userID);
+    void deleteByPID(String postID);
     void deleteRecord(String userID, String postID);
 
     List<Comments> getAllcommentsOfUser(String userID);

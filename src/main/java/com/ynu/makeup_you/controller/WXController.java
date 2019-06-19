@@ -195,4 +195,127 @@ public class WXController {
         }
         return jsons;
     }
+
+    // 点赞我的
+    public List<Object> getLikesMe(@RequestParam("userID") String userID) {
+        jsonObject = new JSONObject();
+        JSONObject post = new JSONObject();
+        List<Object> jsons = new ArrayList<>();
+        // 查询出该用户的所有帖子
+        List<PostMessage> postList = postMessageService.findPostsByUid(userID);
+        for (PostMessage pm : postList) {
+            // 得到点赞了该帖子的所有点赞信息
+            List<Likes> likesList = likesService.getAlluser(pm.getPid());
+            for (Likes l : likesList) {
+                jsonObject.put("uid", l.getUserID());
+                jsonObject.put("userHeadURL", userService.getUserByID(l.getUserID()).getAvatarID());
+                jsonObject.put("userName", userService.getUserByID(l.getUserID()).getName());
+                jsonObject.put("time", l.getTime());
+                post.put("pid", postMessageService.findPostsByID(l.getPostID()).getPid());
+                post.put("userHeadURL", userService.getUserByID(postMessageService.findPostsByID(l.getPostID()).getUid()).getAvatarID());
+                post.put("userName", userService.getUserByID(postMessageService.findPostsByID(l.getPostID()).getUid()).getName());
+                post.put("publishTime", postMessageService.findPostsByID(l.getPostID()).getPostTime());
+                post.put("title", postMessageService.findPostsByID(l.getPostID()).getTitle());
+                post.put("content", postMessageService.findPostsByID(l.getPostID()).getMessagebody());
+                post.put("likes", likesService.getAlluser(postMessageService.findPostsByID(l.getPostID()).getPid()).size());
+                post.put("favorites", favoritesService.getAlluser(postMessageService.findPostsByID(l.getPostID()).getPid()).size());
+                // 评论
+                List<Comments> commentsList = commentsService.getAllCommentsOfPostmsg(postMessageService.findPostsByID(l.getPostID()).getPid());
+                List<CommentsShow> commentsShowList = new ArrayList<>();
+                for (Comments c : commentsList) {
+                    CommentsShow commentsShow = new CommentsShow(c);
+                    commentsShow.setUserName(userService.getUserByID(c.getUserID()).getName());
+                    commentsShowList.add(commentsShow);
+                }
+                post.put("comments", commentsShowList);
+                jsonObject.put("post", post);
+                jsons.add(new JSONObject(jsonObject));
+                jsonObject = new JSONObject();
+            }
+        }
+        return jsons;
+    }
+
+    // 收藏我的
+    public List<Object> getFavoritesMe(@RequestParam("userID") String userID) {
+        jsonObject = new JSONObject();
+        JSONObject post = new JSONObject();
+        List<Object> jsons = new ArrayList<>();
+        // 查询出该用户的所有帖子
+        List<PostMessage> postList = postMessageService.findPostsByUid(userID);
+        for (PostMessage pm : postList) {
+            // 得到收藏了该帖子的所有收藏信息
+            List<Favorites> favoritesList = favoritesService.getAlluser(pm.getPid());
+            for (Favorites f:favoritesList){
+                jsonObject.put("uid",f.getUserID());
+                jsonObject.put("userHeadURL",userService.getUserByID(f.getUserID()).getAvatarID());
+                jsonObject.put("userName",userService.getUserByID(f.getUserID()).getName());
+                jsonObject.put("time",f.getTime());
+                post.put("pid",postMessageService.findPostsByID(f.getPostID()).getPid());
+                post.put("userHeadURL",userService.getUserByID(postMessageService.findPostsByID(f.getPostID()).getUid()).getAvatarID());
+                post.put("userName",userService.getUserByID(postMessageService.findPostsByID(f.getPostID()).getUid()).getName());
+                post.put("publishTime",postMessageService.findPostsByID(f.getPostID()).getPostTime());
+                post.put("title",postMessageService.findPostsByID(f.getPostID()).getTitle());
+                post.put("content",postMessageService.findPostsByID(f.getPostID()).getMessagebody());
+                post.put("likes",likesService.getAlluser(postMessageService.findPostsByID(f.getPostID()).getPid()).size());
+                post.put("favorites",favoritesService.getAlluser(postMessageService.findPostsByID(f.getPostID()).getPid()).size());
+                // 评论
+                List<Comments> commentsList = commentsService.getAllCommentsOfPostmsg(postMessageService.findPostsByID(f.getPostID()).getPid());
+                List<CommentsShow> commentsShowList = new ArrayList<>();
+                for (Comments c:commentsList){
+                    CommentsShow commentsShow = new CommentsShow(c);
+                    commentsShow.setUserName(userService.getUserByID(c.getUserID()).getName());
+                    commentsShowList.add(commentsShow);
+                }
+                post.put("comments",commentsShowList);
+                jsonObject.put("post",post);
+                jsons.add(new JSONObject(jsonObject));
+                jsonObject = new JSONObject();
+            }
+        }
+        return jsons;
+    }
+
+    // 评论我的
+    public List<Object> getCommentsMe(@RequestParam("userID") String userID) {
+        jsonObject = new JSONObject();
+        JSONObject post = new JSONObject();
+        List<Object> jsons = new ArrayList<>();
+        // 查询出该用户的所有帖子
+        List<PostMessage> postList = postMessageService.findPostsByUid(userID);
+        for (PostMessage pm : postList) {
+            // 得到评论了该帖子的所有评论信息
+            List<Comments> CommentsList = commentsService.getAllCommentsOfPostmsg(pm.getPid());
+            for (Comments c:CommentsList){
+                jsonObject.put("uid",c.getUserID());
+                jsonObject.put("userHeadURL",userService.getUserByID(c.getUserID()).getAvatarID());
+                jsonObject.put("userName",userService.getUserByID(c.getUserID()).getName());
+                jsonObject.put("comment",c.getMessage());
+                jsonObject.put("time",c.getTime());
+                post.put("pid",postMessageService.findPostsByID(c.getPostID()).getPid());
+                post.put("userHeadURL",userService.getUserByID(postMessageService.findPostsByID(c.getPostID()).getUid()).getAvatarID());
+                post.put("userName",userService.getUserByID(postMessageService.findPostsByID(c.getPostID()).getUid()).getName());
+                post.put("publishTime",postMessageService.findPostsByID(c.getPostID()).getPostTime());
+                post.put("title",postMessageService.findPostsByID(c.getPostID()).getTitle());
+                post.put("content",postMessageService.findPostsByID(c.getPostID()).getMessagebody());
+                post.put("likes",likesService.getAlluser(postMessageService.findPostsByID(c.getPostID()).getPid()).size());
+                post.put("favorites",favoritesService.getAlluser(postMessageService.findPostsByID(c.getPostID()).getPid()).size());
+                // 评论
+                List<Comments> commentsList = commentsService.getAllCommentsOfPostmsg(postMessageService.findPostsByID(c.getPostID()).getPid());
+                List<CommentsShow> commentsShowList = new ArrayList<>();
+                for (Comments comments:commentsList){
+                    CommentsShow commentsShow = new CommentsShow(comments);
+                    commentsShow.setUserName(userService.getUserByID(comments.getUserID()).getName());
+                    commentsShowList.add(commentsShow);
+                }
+                post.put("comments",commentsShowList);
+                jsonObject.put("post",post);
+                jsons.add(new JSONObject(jsonObject));
+                jsonObject = new JSONObject();
+            }
+        }
+        return jsons;
+    }
+
+
 }
