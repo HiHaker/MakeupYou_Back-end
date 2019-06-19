@@ -87,6 +87,46 @@ public class WXController {
         return jsonObject;
     }
 
+    // 我的帖子
+    @GetMapping("/getMyPosts")
+    public List<Object> getMyPosts(@RequestParam("userID") String uid){
+        jsonObject = new JSONObject();
+        List<Object> jsons = new ArrayList<>();
+        // 查询所有的帖子信息
+        List<PostMessage> postList = postMessageService.findPostsByUid(uid);
+        for (PostMessage pm: postList){
+            jsonObject.put("pid",pm.getPid());
+            jsonObject.put("uid",pm.getUid());
+            jsonObject.put("userHeadURL",userService.getUserByID(pm.getUid()).getAvatarID());
+            jsonObject.put("userName",userService.getUserByID(pm.getUid()).getName());
+            jsonObject.put("publishTime",pm.getPostTime());
+            jsonObject.put("title",pm.getTitle());
+            jsonObject.put("content",pm.getMessagebody());
+            // 点赞
+            jsonObject.put("likes",likesService.getAlluser(pm.getPid()).size());
+            // 收藏
+            jsonObject.put("favorites",favoritesService.getAlluser(pm.getPid()).size());
+            // 当前用户是否点赞
+            jsonObject.put("isLike",likesService.isLikedByMe(uid,pm.getPid()));
+            // 当前用户是否收藏
+            jsonObject.put("isCollection",favoritesService.isFavoritesByMe(uid,pm.getPid()));
+            // 我是否关注了这个用户
+            jsonObject.put("isAttent",relationService.isFollowed(uid,pm.getUid()));
+            // 评论
+            List<Comments> commentsList = commentsService.getAllCommentsOfPostmsg(pm.getPid());
+            List<CommentsShow> commentsShowList = new ArrayList<>();
+            for (Comments c:commentsList){
+                CommentsShow commentsShow = new CommentsShow(c);
+                commentsShow.setUserName(userService.getUserByID(c.getUserID()).getName());
+                commentsShowList.add(commentsShow);
+            }
+            jsonObject.put("comments",commentsShowList);
+            jsons.add(jsonObject);
+            jsonObject = new JSONObject();
+        }
+        return jsons;
+    }
+
     // 用户首页-我的点赞
     @GetMapping("/getMyLikes")
     public List<Object> getMyLikes(@RequestParam("userID") String userID){

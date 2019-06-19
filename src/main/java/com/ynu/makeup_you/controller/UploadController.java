@@ -33,11 +33,6 @@ public class UploadController {
     @Autowired
     private ImageRepository imageRepository;
 
-    @GetMapping("/multiUpload")
-    public String multiUpload() {
-        return "multiUpload";
-    }
-
     @PostMapping("/multiUpload")
     @ResponseBody
     @Transactional
@@ -57,7 +52,7 @@ public class UploadController {
                 LOGGER.info("第" + (i + 1) + "个文件上传成功");
                 Image image = new Image();
                 image.setPostID(id);
-                image.setImgID(dest.getPath().toString());
+                image.setImgID(dest.getPath());
                 imageRepository.save(image);
             } catch (IOException e) {
                 LOGGER.error(e.toString(), e);

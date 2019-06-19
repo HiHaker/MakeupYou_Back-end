@@ -18,6 +18,11 @@ public class ImageServiceImpl implements ImageService {
     ImageRepository imageRepository;
 
     @Override
+    public void addRecord(Image image) {
+        imageRepository.save(image);
+    }
+
+    @Override
     public List<String> getAllImg(String postID) {
         List<Image> imgAndPostList = imageRepository.findByPostID(postID);
         List<String> imgList = new ArrayList<>();
