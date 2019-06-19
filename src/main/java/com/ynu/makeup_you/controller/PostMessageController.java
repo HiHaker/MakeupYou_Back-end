@@ -46,7 +46,7 @@ public class PostMessageController {
     // 用户发表帖子
     @PostMapping("/addRecord")
     @Transactional
-    public Object addPost(HttpServletRequest request, PostMessage postMessage){
+    public Object addPost(PostMessage postMessage){
 //        //获取当前时间
 //        Date date = new Date();
 //        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
@@ -58,26 +58,6 @@ public class PostMessageController {
 //        // 长度为10
 //        String pid = String.format("%010d",hashCodeV);
         jsonObject = new JSONObject();
-        List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("file");
-        if (files.size() > 0){
-            for (int i = 0; i < files.size(); i++) {
-                MultipartFile file = files.get(i);
-                if (file.isEmpty()) {
-                    return "上传第" + (i++) + "个文件失败";
-                }
-                String fileName = file.getOriginalFilename();
-                File dest = new File(filePath + fileName);
-                try {
-                    file.transferTo(dest);
-                    LOGGER.info("第" + (i + 1) + "个文件上传成功");
-                    Image image = new Image(postMessage.getPid(),dest.getPath());
-                    imageService.addRecord(image);
-                } catch (IOException e) {
-                    LOGGER.error(e.toString(), e);
-                    return "上传第" + (i++) + "个文件失败";
-                }
-            }
-        }
         postMessageService.addPost(postMessage);
         jsonObject.put("postMessage",postMessage);
         return jsonObject;

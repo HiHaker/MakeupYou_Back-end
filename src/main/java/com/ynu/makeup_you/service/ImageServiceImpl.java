@@ -27,7 +27,7 @@ public class ImageServiceImpl implements ImageService {
         List<Image> imgAndPostList = imageRepository.findByPostID(postID);
         List<String> imgList = new ArrayList<>();
         for(Image i:imgAndPostList){
-            imgList.add(i.getImgID());
+            imgList.add("http://106.14.46.10:8080/pictures/"+i.getImgID().substring(12));
         }
         return imgList;
     }

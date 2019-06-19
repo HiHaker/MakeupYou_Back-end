@@ -14,4 +14,4 @@ spring:
     show-sql: true
 
 data:
-  filePath: "D:\\pictureTest"
+  filePath: "D:/pictureTest/"
