@@ -15,8 +15,8 @@ import java.util.List;
  */
 @CrossOrigin
 @RestController
-@RequestMapping("/wxappservice")
-public class WXController {
+@RequestMapping("/appService")
+public class AppController {
     @Autowired
     UserService userService;
     @Autowired
@@ -28,9 +28,11 @@ public class WXController {
     @Autowired
     CommentsService commentsService;
     @Autowired
+    ImageService imageService;
+    @Autowired
     RelationService relationService;
 
-    JSONObject jsonObject;
+    private JSONObject jsonObject;
 
     // 主页
     @GetMapping("/getMainPage")
@@ -47,6 +49,7 @@ public class WXController {
             jsonObject.put("publishTime",pm.getPostTime());
             jsonObject.put("title",pm.getTitle());
             jsonObject.put("content",pm.getMessagebody());
+            jsonObject.put("images",imageService.getAllImg(pm.getPid()));
             // 点赞
             jsonObject.put("likes",likesService.getAlluser(pm.getPid()).size());
             // 收藏
@@ -102,6 +105,7 @@ public class WXController {
             jsonObject.put("publishTime",pm.getPostTime());
             jsonObject.put("title",pm.getTitle());
             jsonObject.put("content",pm.getMessagebody());
+            jsonObject.put("images",imageService.getAllImg(pm.getPid()));
             // 点赞
             jsonObject.put("likes",likesService.getAlluser(pm.getPid()).size());
             // 收藏
@@ -145,6 +149,7 @@ public class WXController {
             post.put("publishTime",postMessageService.findPostsByID(l.getPostID()).getPostTime());
             post.put("title",postMessageService.findPostsByID(l.getPostID()).getTitle());
             post.put("content",postMessageService.findPostsByID(l.getPostID()).getMessagebody());
+            post.put("images",imageService.getAllImg(postMessageService.findPostsByID(l.getPostID()).getPid()));
             post.put("likes",likesService.getAlluser(postMessageService.findPostsByID(l.getPostID()).getPid()).size());
             post.put("favorites",favoritesService.getAlluser(postMessageService.findPostsByID(l.getPostID()).getPid()).size());
             // 评论
@@ -182,6 +187,7 @@ public class WXController {
             post.put("publishTime",postMessageService.findPostsByID(f.getPostID()).getPostTime());
             post.put("title",postMessageService.findPostsByID(f.getPostID()).getTitle());
             post.put("content",postMessageService.findPostsByID(f.getPostID()).getMessagebody());
+            post.put("images",imageService.getAllImg(postMessageService.findPostsByID(f.getPostID()).getPid()));
             post.put("likes",likesService.getAlluser(postMessageService.findPostsByID(f.getPostID()).getPid()).size());
             post.put("favorites",favoritesService.getAlluser(postMessageService.findPostsByID(f.getPostID()).getPid()).size());
             // 评论
@@ -220,6 +226,7 @@ public class WXController {
             post.put("publishTime",postMessageService.findPostsByID(c.getPostID()).getPostTime());
             post.put("title",postMessageService.findPostsByID(c.getPostID()).getTitle());
             post.put("content",postMessageService.findPostsByID(c.getPostID()).getMessagebody());
+            post.put("images",imageService.getAllImg(postMessageService.findPostsByID(c.getPostID()).getPid()));
             post.put("likes",likesService.getAlluser(postMessageService.findPostsByID(c.getPostID()).getPid()).size());
             post.put("favorites",favoritesService.getAlluser(postMessageService.findPostsByID(c.getPostID()).getPid()).size());
             // 评论
@@ -261,6 +268,7 @@ public class WXController {
                 post.put("publishTime", postMessageService.findPostsByID(l.getPostID()).getPostTime());
                 post.put("title", postMessageService.findPostsByID(l.getPostID()).getTitle());
                 post.put("content", postMessageService.findPostsByID(l.getPostID()).getMessagebody());
+                post.put("images",imageService.getAllImg(postMessageService.findPostsByID(l.getPostID()).getPid()));
                 post.put("likes", likesService.getAlluser(postMessageService.findPostsByID(l.getPostID()).getPid()).size());
                 post.put("favorites", favoritesService.getAlluser(postMessageService.findPostsByID(l.getPostID()).getPid()).size());
                 // 评论
@@ -303,6 +311,7 @@ public class WXController {
                 post.put("publishTime",postMessageService.findPostsByID(f.getPostID()).getPostTime());
                 post.put("title",postMessageService.findPostsByID(f.getPostID()).getTitle());
                 post.put("content",postMessageService.findPostsByID(f.getPostID()).getMessagebody());
+                post.put("images",imageService.getAllImg(postMessageService.findPostsByID(f.getPostID()).getPid()));
                 post.put("likes",likesService.getAlluser(postMessageService.findPostsByID(f.getPostID()).getPid()).size());
                 post.put("favorites",favoritesService.getAlluser(postMessageService.findPostsByID(f.getPostID()).getPid()).size());
                 // 评论
@@ -346,6 +355,7 @@ public class WXController {
                 post.put("publishTime",postMessageService.findPostsByID(c.getPostID()).getPostTime());
                 post.put("title",postMessageService.findPostsByID(c.getPostID()).getTitle());
                 post.put("content",postMessageService.findPostsByID(c.getPostID()).getMessagebody());
+                post.put("images",imageService.getAllImg(postMessageService.findPostsByID(c.getPostID()).getPid()));
                 post.put("likes",likesService.getAlluser(postMessageService.findPostsByID(c.getPostID()).getPid()).size());
                 post.put("favorites",favoritesService.getAlluser(postMessageService.findPostsByID(c.getPostID()).getPid()).size());
                 // 评论
