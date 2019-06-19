@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2019/6/9 星期日 上午 9:57:40                      */
+/* Created on:     2019/6/19 星期三 上午 9:37:15                     */
 /*==============================================================*/
 
 
@@ -25,12 +25,12 @@ drop table if exists role;
 drop table if exists user;
 
 /*==============================================================*/
-/* Table: adminRole                                             */
+/* Table: admin_role                                            */
 /*==============================================================*/
 create table admin_role
 (
-   admin_name            varchar(50) not null,
-   role_code             varchar(30) not null,
+   admin_name           varchar(50) not null,
+   role_code            varchar(30) not null,
    primary key (admin_name, role_code)
 );
 
@@ -42,7 +42,7 @@ create table admin_user
    name                 varchar(50) not null,
    password             varchar(50) not null,
    email                varchar(50),
-   last_login_time      datetime not null,
+   last_login_time      datetime,
    primary key (name)
 );
 
@@ -97,7 +97,7 @@ create table postMessage
 (
    pid                  varchar(50) not null,
    uid                  varchar(50),
-   post_time             date not null,
+   post_time             datetime not null,
    type                 tinyint not null,
    title                varchar(50),
    messagebody          text not null,
@@ -119,8 +119,8 @@ create table relation
 /*==============================================================*/
 create table role
 (
-   role_code             varchar(30) not null,
-   role_name             varchar(30) not null,
+   role_code            varchar(30) not null,
+   role_name            varchar(30) not null,
    primary key (role_code)
 );
 
@@ -136,7 +136,7 @@ create table user
    sex                  smallint,
    age                  smallint,
    register_date        datetime not null,
-   avatarID             varchar(50),
+   avatarID             varchar(256),
    description          varchar(50),
    mailbox              varchar(50),
    last_login_time      datetime,

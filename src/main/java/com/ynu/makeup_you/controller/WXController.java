@@ -66,7 +66,7 @@ public class WXController {
                 commentsShowList.add(commentsShow);
             }
             jsonObject.put("comments",commentsShowList);
-            jsons.add(new JSONObject(jsonObject));
+            jsons.add(jsonObject);
             jsonObject = new JSONObject();
         }
         return jsons;
@@ -117,7 +117,8 @@ public class WXController {
             }
             post.put("comments",commentsShowList);
             jsonObject.put("post",post);
-            jsons.add(new JSONObject(jsonObject));
+            post = new JSONObject();
+            jsons.add(jsonObject);
             jsonObject = new JSONObject();
         }
         return jsons;
@@ -153,7 +154,8 @@ public class WXController {
             }
             post.put("comments",commentsShowList);
             jsonObject.put("post",post);
-            jsons.add(new JSONObject(jsonObject));
+            post = new JSONObject();
+            jsons.add(jsonObject);
             jsonObject = new JSONObject();
         }
         return jsons;
@@ -190,13 +192,15 @@ public class WXController {
             }
             post.put("comments",commentsShowList);
             jsonObject.put("post",post);
-            jsons.add(new JSONObject(jsonObject));
+            post = new JSONObject();
+            jsons.add(jsonObject);
             jsonObject = new JSONObject();
         }
         return jsons;
     }
 
     // 点赞我的
+    @GetMapping("/getLikesMe")
     public List<Object> getLikesMe(@RequestParam("userID") String userID) {
         jsonObject = new JSONObject();
         JSONObject post = new JSONObject();
@@ -229,7 +233,8 @@ public class WXController {
                 }
                 post.put("comments", commentsShowList);
                 jsonObject.put("post", post);
-                jsons.add(new JSONObject(jsonObject));
+                post = new JSONObject();
+                jsons.add(jsonObject);
                 jsonObject = new JSONObject();
             }
         }
@@ -237,6 +242,7 @@ public class WXController {
     }
 
     // 收藏我的
+    @GetMapping("/getFavoritesMe")
     public List<Object> getFavoritesMe(@RequestParam("userID") String userID) {
         jsonObject = new JSONObject();
         JSONObject post = new JSONObject();
@@ -269,7 +275,8 @@ public class WXController {
                 }
                 post.put("comments",commentsShowList);
                 jsonObject.put("post",post);
-                jsons.add(new JSONObject(jsonObject));
+                post = new JSONObject();
+                jsons.add(jsonObject);
                 jsonObject = new JSONObject();
             }
         }
@@ -277,6 +284,7 @@ public class WXController {
     }
 
     // 评论我的
+    @GetMapping("/getCommentsMe")
     public List<Object> getCommentsMe(@RequestParam("userID") String userID) {
         jsonObject = new JSONObject();
         JSONObject post = new JSONObject();
@@ -310,7 +318,8 @@ public class WXController {
                 }
                 post.put("comments",commentsShowList);
                 jsonObject.put("post",post);
-                jsons.add(new JSONObject(jsonObject));
+                post = new JSONObject();
+                jsons.add(jsonObject);
                 jsonObject = new JSONObject();
             }
         }
