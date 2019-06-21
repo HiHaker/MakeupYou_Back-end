@@ -1,6 +1,7 @@
 package com.ynu.makeup_you.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.ynu.makeup_you.annotation.UserLoginToken;
 import com.ynu.makeup_you.entity.*;
 import com.ynu.makeup_you.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
